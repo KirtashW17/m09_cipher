@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tscalise.cipherProject.controllers.KeyedVigenereController">
+   <children>
+      <HBox prefHeight="400.0" prefWidth="600.0">
+         <children>
+          <AnchorPane minHeight="0.0" prefHeight="400.0" prefWidth="700.0">
+               <children>
+                  <Text layoutX="71.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Keyed Vigenere Cipher" />
+                  <RadioButton fx:id="RBcrypt" layoutX="64.0" layoutY="67.0" mnemonicParsing="false" selected="true" text="Crypt">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="TGcipherAction" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="RBdecrypt" layoutX="142.0" layoutY="67.0" mnemonicParsing="false" text="Decrypt" toggleGroup="$TGcipherAction" />
+                  <Separator layoutX="46.0" layoutY="36.0" prefHeight="3.0" prefWidth="194.0" />
+                  <Label layoutX="9.0" layoutY="115.0" text="Alphabet Key:" />
+                  <TextField fx:id="TFalphabetKey" layoutX="111.0" layoutY="111.0" />
+                  <Label layoutX="9.0" layoutY="151.0" text="Alphabet Used:" />
+                  <Label layoutX="9.0" layoutY="191.0" text="Passphrase:" />
+                  <Button fx:id="BtnCrypt" layoutX="208.0" layoutY="348.0" mnemonicParsing="false" text="Crypt" />
+                  <Button fx:id="BtnExit" layoutX="161.0" layoutY="348.0" mnemonicParsing="false" onAction="#exit" text="Exit" />
+                  <TextField fx:id="TFpassphrase" layoutX="111.0" layoutY="188.0" />
+                  <Label fx:id="LabelAlphabetUsed" layoutX="124.0" layoutY="141.0" prefHeight="36.0" prefWidth="122.0" text="ABCDEFGHIJKLMNOPQRSTUVWXYZ" wrapText="true" />
+               </children>
+            </AnchorPane>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+          <AnchorPane minHeight="0.0" prefHeight="160.0" prefWidth="691.0">
+               <children>
+                  <VBox prefHeight="400.0" prefWidth="294.0">
+                     <children>
+                      <AnchorPane minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <TextArea fx:id="TAinput" layoutX="8.0" layoutY="37.0" prefHeight="149.0" prefWidth="276.0" />
+                              <Text layoutX="130.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Input" />
+                              <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="258.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../assets/images/clipboard.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
+                        <Separator prefWidth="200.0">
+                           <VBox.margin>
+                              <Insets top="15.0" />
+                           </VBox.margin>
+                        </Separator>
+                      <AnchorPane minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <TextArea fx:id="TAoutput" editable="false" layoutX="9.0" layoutY="33.0" prefHeight="149.0" prefWidth="276.0" />
+                              <Text layoutX="131.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Output" />
+                              <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="262.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../assets/images/clipboard.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

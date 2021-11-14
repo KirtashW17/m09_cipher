@@ -1,0 +1,83 @@
+package tscalise.cipherProject.libraries.encryption;
+
+import org.junit.jupiter.api.Test;
+import tscalise.cipherProject.libraries.hashing.ShaHashing;
+
+import javax.crypto.spec.IvParameterSpec;
+import java.nio.charset.StandardCharsets;
+import java.security.*;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class AsymmetricEncryptionTest {
+
+    // todo test seed
+    // todo test checksum
+
+    @Test
+    void asymmetricEncryption() throws GeneralSecurityException {
+        String str = "testtesttest";
+        byte[] a, b;
+
+        KeyPairGenerator kpGen = KeyPairGenerator.getInstance("RSA");
+        kpGen.initialize(1024);
+        KeyPair keyPair = kpGen.generateKeyPair();
+
+        a = str.getBytes(StandardCharsets.UTF_8);
+
+        b = AsymmetricEncryption.encrypt(a, keyPair.getPublic());
+        assertArrayEquals(a, AsymmetricEncryption.decrypt(b, keyPair.getPrivate()));
+        assertEquals(str, new String(AsymmetricEncryption.decrypt(b, keyPair.getPrivate())));
+    }
+
+    @Test
+    void asymmetricEncryptionCheckHash() throws GeneralSecurityException {
+        String ahash, bhash, str = "test";
+        byte[] original, crypted, decrypted;
+
+        KeyPairGenerator kpGen = KeyPairGenerator.getInstance("RSA");
+        kpGen.initialize(1024);
+        KeyPair keyPair = kpGen.generateKeyPair();
+
+        original = str.getBytes(StandardCharsets.UTF_8);
+        crypted = AsymmetricEncryption.encrypt(original, keyPair.getPublic());
+        decrypted = AsymmetricEncryption.decrypt(crypted, keyPair.getPrivate());
+
+        ahash = ShaHashing.getSHA256(original);
+        bhash = ShaHashing.getSHA256(decrypted);
+
+        assertEquals(ahash, bhash);
+        assertArrayEquals(original, decrypted);
+        assertEquals(str, new String(decrypted));
+    }
+
+    @Test
+    void verifySignature() throws  GeneralSecurityException{
+        String str = "1";
+        byte[] a, b;
+
+        KeyPairGenerator kpGen = KeyPairGenerator.getInstance("RSA");
+        kpGen.initialize(1024);
+        KeyPair keyPairA = kpGen.generateKeyPair();
+        KeyPair keyPairB = kpGen.generateKeyPair();
+
+        a = str.getBytes(StandardCharsets.UTF_8);
+
+//        IvParameterSpec seed = generateSeed();
+
+        b = AsymmetricEncryption.cryptAndSign(a, keyPairB.getPublic(), keyPairA.getPrivate(), null);
+        byte[] decryptedBytes = AsymmetricEncryption.decrypt(b, keyPairB.getPrivate());
+        byte[] messageBytes = AsymmetricEncryption.trimSignature(decryptedBytes);
+        byte[] signatureBytes = AsymmetricEncryption.getSignature(decryptedBytes);
+        assertTrue(AsymmetricEncryption.verifySignature(messageBytes, signatureBytes, keyPairA.getPublic()));
+//        assertArrayEquals(a, AsymmetricEncryption.decrypt(b, keyPair.getPrivate()));
+//        assertEquals(str, new String(AsymmetricEncryption.decrypt(b, keyPair.getPrivate())));
+    }
+
+    private IvParameterSpec generateSeed() throws NoSuchAlgorithmException {
+        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
+        byte[] random = new byte[16];
+        sr.nextBytes(random);
+        return new IvParameterSpec(random);
+    }
+}

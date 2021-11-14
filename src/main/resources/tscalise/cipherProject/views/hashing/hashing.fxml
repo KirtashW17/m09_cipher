@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tscalise.cipherProject.controllers.HashingController">
+   <children>
+      <HBox prefHeight="400.0" prefWidth="600.0">
+         <children>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="670.0">
+               <children>
+                  <Text layoutX="94.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hash Calculator" />
+                  <RadioButton fx:id="RBsha1" layoutX="33.0" layoutY="96.0" mnemonicParsing="false" text="SHA1">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="TGhashAlgorythm" />
+                     </toggleGroup></RadioButton>
+                  <RadioButton fx:id="RBsha256" layoutX="100.0" layoutY="96.0" mnemonicParsing="false" text="SHA256" />
+                  <RadioButton fx:id="RBsha512" layoutX="182.0" layoutY="96.0" mnemonicParsing="false" text="SHA512" />
+                  <CheckBox layoutX="27.0" layoutY="163.0" mnemonicParsing="false" text="Seed" />
+                  <RadioButton disable="true" layoutX="39.0" layoutY="194.0" mnemonicParsing="false" text="Random" />
+                  <RadioButton disable="true" layoutX="40.0" layoutY="223.0" mnemonicParsing="false" text="Manual" />
+                  <TextField disable="true" layoutX="119.0" layoutY="220.0" prefHeight="26.0" prefWidth="157.0" />
+                  <Separator layoutX="48.0" layoutY="39.0" prefWidth="200.0" />
+                  <Label layoutX="34.0" layoutY="65.0" prefHeight="3.0" prefWidth="73.0" text="Algorythm:" />
+                  <Button layoutX="157.0" layoutY="360.0" mnemonicParsing="false" text="Calculate Hash" />
+                  <Button layoutX="107.0" layoutY="360.0" mnemonicParsing="false" onAction="#exit" text="Exit" />
+               </children>
+            </AnchorPane>
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="691.0">
+               <children>
+                  <VBox prefHeight="400.0" prefWidth="308.0">
+                     <children>
+                      <AnchorPane minWidth="0.0" prefHeight="100.0" prefWidth="306.0">
+                           <children>
+                              <TextArea layoutX="9.0" layoutY="33.0" prefHeight="149.0" prefWidth="276.0" />
+                              <Text layoutX="131.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Input" />
+                              <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="262.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../assets/images/clipboard.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
+                        <Separator prefWidth="200.0">
+                           <VBox.margin>
+                              <Insets top="15.0" />
+                           </VBox.margin></Separator>
+                      <AnchorPane minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <TextArea editable="false" layoutX="8.0" layoutY="37.0" prefHeight="149.0" prefWidth="276.0" />
+                              <Text layoutX="130.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hash" />
+                              <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="258.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../../assets/images/clipboard.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
