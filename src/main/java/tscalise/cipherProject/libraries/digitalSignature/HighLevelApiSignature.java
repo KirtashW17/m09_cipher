@@ -62,7 +62,6 @@ public class HighLevelApiSignature {
      * @throws SignatureException
      */
     public static byte[] generateSignatureFromFile(File file, PrivateKey privateKey) throws IOException, NoSuchAlgorithmException, InvalidKeyException, SignatureException {
-        // TODO: Comprobación errores, ver initializeBufferedReader y poner en Utils
         BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));
         byte[] buff = new byte[8192];
 
@@ -79,52 +78,28 @@ public class HighLevelApiSignature {
         return signature.sign();
     }
 
-    /** TODO ELIMINAR
-     * Genera los bytes de la firma digital de un archivo dado el archivo y la clave privada con la cual firmar.
-     * @param filePath Ruta del archivo del cual queremos obtener la firma digital.
-     * @param privateKey Llave privada con la cual queremos firmar
-     * @return Vector de 128 bytes conteniente la firma digital.
-     * @throws IOException
-     * @throws NoSuchAlgorithmException
-     * @throws InvalidKeyException
-     * @throws SignatureException
-     * @deprecated Se eliminará en la próxima versión
-     */
-    public static byte[] generateSignatureFromFile(String filePath, PrivateKey privateKey) throws IOException, NoSuchAlgorithmException, SignatureException, InvalidKeyException {
-        File file = new File(filePath);
-        return generateSignatureFromFile(file, privateKey);
-    }
-
     /**
      *  TODO DOCUMENTATION
      */
     public static void signFile(File inputFile, File signedFile, PrivateKey privateKey) {
         // TODO: generate signature from file + write new file
     }
-//
-//    /**
-//     *  TODO DOCUMENTATION
-//     */
-//    public static void signFile(String inputFilePath, String signedFilePath, PrivateKey privateKey) {
-//        // TODO: generate signature from file + write new file
-//    }
-//
-//    /**
-//     *  TODO DOCUMENTATION
-//     */
-//    public static boolean verifyFileSignature(File file, PublicKey publicKey) {
-//
-//    }
-//
-//    /**
-//     *  TODO DOCUMENTATION
-//     */
-//    public static boolean verifyFileSignature(String filePath, PublicKey publicKey) {
-//
-//    }
 
     /**
      *  TODO DOCUMENTATION
+     */
+    public static boolean verifyFileSignature(File file, PublicKey publicKey) {
+        // todo implement
+        return false; // not implemented
+    }
+
+
+    /**
+     * Verifica que una firma sea correcta dados los bytes del mensaje, los de la firma y la clave pública de quién
+     *  firmó el documento
+     * @param messageBytes Bytes del mensaje sin la firma
+     * @param signatureBytes Bytes de la firma
+     * @param signerPublicKey Clave pública de quién firmó el mensaje
      */
     public static boolean verifyBytesSignature(byte[] messageBytes, byte[] signatureBytes, PublicKey signerPublicKey) throws NoSuchAlgorithmException, InvalidKeyException, SignatureException {
         java.security.Signature signature = java.security.Signature.getInstance("SHA256withRSA");
@@ -134,16 +109,20 @@ public class HighLevelApiSignature {
     }
 
     /**
-     *  TODO DOCUMENTATION
+     * Verifica que la firma concatenada en el mensaje sea correcta dados los bytes del mensaje con la firma y la
+     *  clave pública de quién firmó el mensaje
+     * @param bytesWithSignature Bytes del mensaje con la firma
+     * @param signerPublicKey Clave pública de quién firmó el mensaje
      */
-    public static boolean verifyBytesSignature(byte[] bytesWithSignature, PublicKey publicKey) throws NoSuchAlgorithmException, SignatureException, InvalidKeyException {
+    public static boolean verifyBytesSignature(byte[] bytesWithSignature, PublicKey signerPublicKey) throws NoSuchAlgorithmException, SignatureException, InvalidKeyException {
         byte[] messageBytes = trimSignatureBytes(bytesWithSignature);
         byte[] signatureBytes = getSignatureBytes(bytesWithSignature);
-        return verifyBytesSignature(messageBytes, signatureBytes, publicKey);
+        return verifyBytesSignature(messageBytes, signatureBytes, signerPublicKey);
     }
 
     /**
-     *  TODO DOCUMENTATION
+     * Dado un mensaje con la firma concatenada al final devuelve los 128 bytes de la firma
+     * @return Vector de 128 bytes que contiene la firma
      */
     public static byte[] getSignatureBytes(byte[] bytesWithSignature) {
         byte[] signatureBytes = new byte[32];
@@ -152,7 +131,8 @@ public class HighLevelApiSignature {
     }
 
     /**
-     *  TODO DOCUMENTATION
+     * Dado un mensaje con la firma concatenada al final devuelve el mensaje entero sin la firma
+     * @return Vector de bytes que contiene el mensaje sin la firma
      */
     public static byte[] trimSignatureBytes(byte[] bytesWithSignature) {
         byte[] signatureBytes = new byte[bytesWithSignature.length - 32];

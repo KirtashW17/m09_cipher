@@ -7,7 +7,10 @@ import java.security.*;
 import java.util.Arrays;
 
 /**
- *  TODO DOCUMENTATION
+ * En esta clase encontraremos métodos para poder cifrar/descifrar usando Cifrado Asimétrico con el
+ * algoritmo de cifrado RSA.
+ * @author Thomas Scalise
+ * @version 1.0 (14/11/2021)
  */
 public class AsymmetricEncryption {
 

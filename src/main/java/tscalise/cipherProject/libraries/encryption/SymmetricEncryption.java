@@ -6,7 +6,10 @@ import java.security.GeneralSecurityException;
 import java.security.Key;
 
 /**
- *  TODO DOCUMENTATION
+ * En esta clase encontraremos métodos para poder cifrar/descifrar usando Cifrado Simétrico con el
+ * algoritmo de cifrado AES.
+ * @author Thomas Scalise
+ * @version 1.0 (14/11/2021)
  */
 public class SymmetricEncryption {
 

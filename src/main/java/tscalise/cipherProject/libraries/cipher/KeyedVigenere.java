@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *  TODO DOCUMENTATION
+ * Esta clase implementa el cifrado/descifrado usando Keyed Vigenere.
+ * Se ha implementado de forma que los resultados obtenidos sean idénticos a la fuente:
+ * http://rumkin.com/tools/cipher/vigenere-keyed.php
+ * @author Thomas Scalise
+ * @version 1.0 (14/11/2021)
  */
 public class KeyedVigenere {
 

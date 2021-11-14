@@ -32,18 +32,6 @@ public class ShaHashing {
         return md.digest(input);
     }
 
-    /** TODO ELIMINAR
-     * Calcula el "resumen" de una entrada dada la entrada, la semilla (opcional) y el algoritmo a usar.
-     * @param input Bytes de entrada a partir de los cuales se calculará el resumen
-     * @param seed Semilla para modificar la salida de la función resumen. Puede ser null
-     * @param algorithm Algoritmo con el cual queremos calcular la función resumen
-     * @return Función resumen en un vector de bytes
-     * @deprecated SE ELIMINARÁ EN EL PRÓXIMO COMMIT
-     */
-    public static byte[] calculateHashBytes(byte[] input, byte[] seed, String algorithm) throws NoSuchAlgorithmException {
-        return calculateHashBytes(input, seed, HashAlgorithm.valueOf(algorithm));
-    }
-
     /**
      * Calcula el "resumen" de una entrada dada la entrada, la semilla (opcional) y el algoritmo a usar y la devuelve en una String hexadecimal.
      * @param input Bytes de entrada a partir de los cuales se calculará el resumen
@@ -71,21 +59,6 @@ public class ShaHashing {
             seedBytes = seed.getBytes(StandardCharsets.UTF_8);
 
         return calculateHashHex(input.getBytes(StandardCharsets.UTF_8), seedBytes, algorithm);
-    }
-
-    /** TODO ELIMINAR
-     * Calcula el "resumen" de una entrada dada la entrada, la semilla (opcional) y el algoritmo a usar y la devuelve
-     * en una String hexadecimal.
-     * @param input String de entrada a partir de los cuales se calculará el resumen
-     * @param seed Semilla para modificar la salida de la función resumen. Puede ser null
-     * @param algorithm Algoritmo con el cual queremos calcular la función resumen
-     * @return Función resumen en formato String Hexadecimal
-     * @deprecated SE ELIMINARÁ EN EL PRÓXIMO COMMIT
-     */
-    public static String calculateHashHex(String input, String seed, String algorithm)
-            throws IllegalArgumentException, NoSuchAlgorithmException {
-
-        return calculateHashHex(input, seed, HashAlgorithm.valueOf(algorithm));
     }
 
     /**
