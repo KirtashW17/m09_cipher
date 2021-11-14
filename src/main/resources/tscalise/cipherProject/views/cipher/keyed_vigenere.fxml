@@ -12,22 +12,23 @@
          <children>
           <AnchorPane minHeight="0.0" prefHeight="400.0" prefWidth="700.0">
                <children>
-                  <Text layoutX="71.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Keyed Vigenere Cipher" />
-                  <RadioButton fx:id="RBcrypt" layoutX="64.0" layoutY="67.0" mnemonicParsing="false" selected="true" text="Crypt">
+                  <Text layoutX="71.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cifrado Keyed Vigenere" />
+                  <RadioButton fx:id="RBcrypt" layoutX="64.0" layoutY="67.0" mnemonicParsing="false" onAction="#switchRadioButtons" selected="true" text="Cifrar">
                      <toggleGroup>
                         <ToggleGroup fx:id="TGcipherAction" />
                      </toggleGroup>
                   </RadioButton>
-                  <RadioButton fx:id="RBdecrypt" layoutX="142.0" layoutY="67.0" mnemonicParsing="false" text="Decrypt" toggleGroup="$TGcipherAction" />
+                  <RadioButton fx:id="RBdecrypt" layoutX="142.0" layoutY="67.0" mnemonicParsing="false" onAction="#switchRadioButtons" text="Descifrar" toggleGroup="$TGcipherAction" />
                   <Separator layoutX="46.0" layoutY="36.0" prefHeight="3.0" prefWidth="194.0" />
-                  <Label layoutX="9.0" layoutY="115.0" text="Alphabet Key:" />
-                  <TextField fx:id="TFalphabetKey" layoutX="111.0" layoutY="111.0" />
-                  <Label layoutX="9.0" layoutY="151.0" text="Alphabet Used:" />
-                  <Label layoutX="9.0" layoutY="191.0" text="Passphrase:" />
-                  <Button fx:id="BtnCrypt" layoutX="208.0" layoutY="348.0" mnemonicParsing="false" text="Crypt" />
-                  <Button fx:id="BtnExit" layoutX="161.0" layoutY="348.0" mnemonicParsing="false" onAction="#exit" text="Exit" />
-                  <TextField fx:id="TFpassphrase" layoutX="111.0" layoutY="188.0" />
-                  <Label fx:id="LabelAlphabetUsed" layoutX="124.0" layoutY="141.0" prefHeight="36.0" prefWidth="122.0" text="ABCDEFGHIJKLMNOPQRSTUVWXYZ" wrapText="true" />
+                  <Label layoutX="9.0" layoutY="103.0" prefHeight="36.0" prefWidth="92.0" text="Modificador abecedario:" wrapText="true" />
+                  <TextField fx:id="TFalphabetModificator" layoutX="111.0" layoutY="111.0" onKeyTyped="#typeOnAlphabetModificator" />
+                  <Label layoutX="10.0" layoutY="147.0" prefHeight="36.0" prefWidth="76.0" text="Abecedario en uso:" wrapText="true" />
+                  <Label layoutX="9.0" layoutY="197.0" text="Clave secreta:" />
+                  <Button fx:id="btnAction" layoutX="207.0" layoutY="348.0" maxWidth="82.0" mnemonicParsing="false" onAction="#pressActionButton" prefHeight="24.0" prefWidth="82.0" text="Cifrar" />
+                  <Button layoutX="14.0" layoutY="348.0" mnemonicParsing="false" onAction="#pressExitButton" text="Salir" />
+                  <TextField fx:id="TFpassphrase" layoutX="111.0" layoutY="194.0" />
+                  <Label fx:id="LabelAlphabetUsed" layoutX="124.0" layoutY="146.0" prefHeight="36.0" prefWidth="122.0" text="ABCDEFGHIJKLMNOPQRSTUVWXYZ" wrapText="true" />
+                  <Button layoutX="76.0" layoutY="348.0" mnemonicParsing="false" onAction="#pressClearButton" text="Vaciar Campos" />
                </children>
             </AnchorPane>
             <Separator orientation="VERTICAL" prefHeight="200.0" />
@@ -38,7 +39,7 @@
                       <AnchorPane minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
                               <TextArea fx:id="TAinput" layoutX="8.0" layoutY="37.0" prefHeight="149.0" prefWidth="276.0" />
-                              <Text layoutX="130.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Input" />
+                              <Text layoutX="130.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Entrada" />
                               <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="258.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../assets/images/clipboard.png" />
@@ -54,7 +55,7 @@
                       <AnchorPane minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
                               <TextArea fx:id="TAoutput" editable="false" layoutX="9.0" layoutY="33.0" prefHeight="149.0" prefWidth="276.0" />
-                              <Text layoutX="131.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Output" />
+                              <Text layoutX="131.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salida" />
                               <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="262.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
                                  <image>
                                     <Image url="@../../assets/images/clipboard.png" />

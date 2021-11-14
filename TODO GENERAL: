@@ -1,3 +1,7 @@
 # TODO: MEJORAR CONTROL EXCEPCIONES (REMOVER noSuchAlgorythm, etc)
-# TODO: CHECK BUFF, AT THE FINAL LOOP ITERATION IT HAS MORE BYTES
 # TODO: DOCUMENTAR INTERIOR CÓDIGO
+# TODO: Más tests
+# TODO: Interfaz gráfica
+# TODO: JavaDOC generation warnings (throws, params, etc.)
+# TODO: Check Warnings
+# todo: keystore
