@@ -18,7 +18,7 @@ public class SymmetricEncryption {
     //  Java JCE/JCA que utilitzi un “seed” aleatori addicional al contingut que voleu encriptar.
     //  Això es fa per tal que el resultat de l’encriptació no segueixi el mateix patró i per tant es pugui arribar a desencriptar.
 
-    // TODO CIFRAR ARCHIVOS
+    // TODO CIFRAR/DESCIFRAR ARCHIVOS
     // TODO: Ojo: CBC != ECB. Documentar
 
     /**

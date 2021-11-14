@@ -14,16 +14,15 @@ import java.util.Arrays;
  */
 public class AsymmetricEncryption {
 
+    public static void main(String[] args) {
+    }
+
     // Heu de calcular la funció resum d’un document original sense encriptar i despès l’heu d’encriptar amb la vostra
     // clau privada. Un cop fet això, envieu els dos continguts al destinatari que haurà de comprovar la validesa de tot
     // plegat desencriptant primer (amb la vostra clau pública) i calculant la funció resum (hash) del contingut desencriptat.
     // Si el valor resum calculat és el mateix que el valor resum (hash) rebut, el contingut és correcte.
 
-    // TODO: Funcio resum signature (?) - no estoy muy convencido
-
-    // TODO: String input method overload
-    // TODO: Xifrar fitxer
-    // TODO: Check input not null
+    // TODO CIFRAR/DESCIFRAR ARCHIVOS
 
     /**
      * Cifra un mensaje mediante encriptación asimétrica RSA.
@@ -36,6 +35,10 @@ public class AsymmetricEncryption {
      *  la clave insertados no sean válidos.
      */
     public static byte[] encrypt(byte[] input, Key key, IvParameterSpec seed) throws GeneralSecurityException {
+        if (input == null || input.length == 0) {
+            return null;
+        }
+
         // Inicializamos los punteros para saber en que posición del vector estamos leyendo/escribiendo
         int inputPointer = 0, outputPointer = 0;
 
@@ -98,6 +101,10 @@ public class AsymmetricEncryption {
      *  la clave insertados no sean válidos.
      */
     public static byte[] decrypt(byte[] input, Key key, IvParameterSpec seed) throws GeneralSecurityException {
+        if (input == null || input.length == 0) {
+            return null;
+        }
+
         int inputPointer = 0, outputPointer = 0;
         int outputLength = input.length / 128 * 117;
         byte[] decryptedBytes = new byte[outputLength];

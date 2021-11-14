@@ -11,13 +11,7 @@ import java.util.Arrays;
  */
 public class HighLevelApiSignature {
 
-    // TODO signatura
-    // TODO LOW LEVEL API
-    // TODO HIGH LEVEL API
-    // TODO KEYSTORE
     // TODO SIGN FILE
-    // TODO SIGN BYTE ARRAY
-    // todo firma 128 en vez de 32
 
 
     /**
