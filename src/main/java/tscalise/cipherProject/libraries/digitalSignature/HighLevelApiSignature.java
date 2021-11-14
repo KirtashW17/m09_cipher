@@ -5,7 +5,9 @@ import java.security.*;
 import java.util.Arrays;
 
 /**
- *  TODO DOCUMENTATION
+ * Esta clase permite firmar vectores de bytes y archivos usando la API de alto nivel de Java.
+ * @author Thomas Scalise
+ * @version 1.0 (14/11/2021)
  */
 public class HighLevelApiSignature {
 
@@ -67,15 +69,17 @@ public class HighLevelApiSignature {
         Signature signature = Signature.getInstance("SHA256withRSA");
         signature.initSign(privateKey);
 
-
-        while (bis.read(buff) > 0) {
+        int readBytes;
+        while ((readBytes = bis.read(buff)) > 0) {
+            if (readBytes < 8192)
+                buff = Arrays.copyOf(buff, readBytes);
             signature.update(buff);
         }
 
         return signature.sign();
     }
 
-    /**
+    /** TODO ELIMINAR
      * Genera los bytes de la firma digital de un archivo dado el archivo y la clave privada con la cual firmar.
      * @param filePath Ruta del archivo del cual queremos obtener la firma digital.
      * @param privateKey Llave privada con la cual queremos firmar
@@ -84,6 +88,7 @@ public class HighLevelApiSignature {
      * @throws NoSuchAlgorithmException
      * @throws InvalidKeyException
      * @throws SignatureException
+     * @deprecated Se eliminará en la próxima versión
      */
     public static byte[] generateSignatureFromFile(String filePath, PrivateKey privateKey) throws IOException, NoSuchAlgorithmException, SignatureException, InvalidKeyException {
         File file = new File(filePath);
@@ -96,14 +101,14 @@ public class HighLevelApiSignature {
     public static void signFile(File inputFile, File signedFile, PrivateKey privateKey) {
         // TODO: generate signature from file + write new file
     }
-
-    /**
-     *  TODO DOCUMENTATION
-     */
-    public static void signFile(String inputFilePath, String signedFilePath, PrivateKey privateKey) {
-        // TODO: generate signature from file + write new file
-    }
-
+//
+//    /**
+//     *  TODO DOCUMENTATION
+//     */
+//    public static void signFile(String inputFilePath, String signedFilePath, PrivateKey privateKey) {
+//        // TODO: generate signature from file + write new file
+//    }
+//
 //    /**
 //     *  TODO DOCUMENTATION
 //     */

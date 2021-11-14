@@ -1,6 +1,7 @@
 package tscalise.cipherProject.libraries.encryption;
 
 import org.junit.jupiter.api.Test;
+import tscalise.cipherProject.libraries.hashing.HashAlgorithm;
 import tscalise.cipherProject.libraries.hashing.ShaHashing;
 
 import javax.crypto.spec.IvParameterSpec;
@@ -44,8 +45,8 @@ class AsymmetricEncryptionTest {
         crypted = AsymmetricEncryption.encrypt(original, keyPair.getPublic(), null);
         decrypted = AsymmetricEncryption.decrypt(crypted, keyPair.getPrivate(), null);
 
-        ahash = ShaHashing.getSHA256(original);
-        bhash = ShaHashing.getSHA256(decrypted);
+        ahash = ShaHashing.calculateHashHex(original, null, HashAlgorithm.SHA256);
+        bhash = ShaHashing.calculateHashHex(decrypted, null, HashAlgorithm.SHA256);
 
         assertEquals(ahash, bhash);
         assertArrayEquals(original, decrypted);

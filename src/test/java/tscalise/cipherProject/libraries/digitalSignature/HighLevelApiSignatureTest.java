@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class HighLevelApiSignatureTest {
 
     @Test
-    public void bufferedUpdateTesta() throws NoSuchAlgorithmException, SignatureException, InvalidKeyException {
+    public void bufferedUpdateTest() throws NoSuchAlgorithmException, SignatureException, InvalidKeyException {
        byte[] a, b, c, s1, s2;
        a = "12".getBytes(StandardCharsets.UTF_8);
        b = "34".getBytes(StandardCharsets.UTF_8);

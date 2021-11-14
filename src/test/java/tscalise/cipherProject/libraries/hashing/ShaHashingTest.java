@@ -2,41 +2,50 @@ package tscalise.cipherProject.libraries.hashing;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import java.security.NoSuchAlgorithmException;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class ShaHashingTest {
 
     @Test
-    void getSHA1() {
-        String hash, saltedHash;
-        hash = ShaHashing.getSHA1("test");
-        saltedHash = ShaHashing.getSHA1("test", "seed");
-
-        assertNotEquals(hash, saltedHash);
-        assertEquals(hash, ShaHashing.getSHA1("test"));
-        assertEquals(saltedHash, ShaHashing.getSHA1("test", "seed"));
+    void digestOfBuffTest() throws NoSuchAlgorithmException {
+        byte[] a, b;
+        a = new byte[]{ 12, 43, 54};
+        b = new byte[]{ 12, 43, 54, 0, 0};
+        assertNotEquals(ShaHashing.calculateHashHex(a, null, HashAlgorithm.SHA1), ShaHashing.calculateHashHex(b, null, HashAlgorithm.SHA1));
     }
 
     @Test
-    void getSHA256() {
+    void getSHA1() throws NoSuchAlgorithmException {
         String hash, saltedHash;
-        hash = ShaHashing.getSHA256("test");
-        saltedHash = ShaHashing.getSHA256("test", "seed");
+        hash = ShaHashing.calculateHashHex("test", null, HashAlgorithm.SHA1);
+        saltedHash = ShaHashing.calculateHashHex("test", "seed", HashAlgorithm.SHA1);
 
         assertNotEquals(hash, saltedHash);
-        assertEquals(hash, ShaHashing.getSHA256("test"));
-        assertEquals(saltedHash, ShaHashing.getSHA256("test", "seed"));
+        assertEquals(hash, ShaHashing.calculateHashHex("test", null, HashAlgorithm.SHA1));
+        assertEquals(saltedHash, ShaHashing.calculateHashHex("test", "seed", HashAlgorithm.SHA1));
     }
 
     @Test
-    void getSHA512() {
+    void getSHA256() throws NoSuchAlgorithmException {
         String hash, saltedHash;
-        hash = ShaHashing.getSHA512("test");
-        saltedHash = ShaHashing.getSHA512("test", "seed");
+        hash = ShaHashing.calculateHashHex("test", null, HashAlgorithm.SHA256);
+        saltedHash = ShaHashing.calculateHashHex("test", "seed", HashAlgorithm.SHA256);
 
         assertNotEquals(hash, saltedHash);
-        assertEquals(hash, ShaHashing.getSHA512("test"));
-        assertEquals(saltedHash, ShaHashing.getSHA512("test", "seed"));
+        assertEquals(hash, ShaHashing.calculateHashHex("test", null, HashAlgorithm.SHA256));
+        assertEquals(saltedHash, ShaHashing.calculateHashHex("test", "seed", HashAlgorithm.SHA256));
+    }
+
+    @Test
+    void getSHA512() throws NoSuchAlgorithmException {
+        String hash, saltedHash;
+        hash = ShaHashing.calculateHashHex("test", null, HashAlgorithm.SHA512);
+        saltedHash = ShaHashing.calculateHashHex("test", "seed", HashAlgorithm.SHA512);
+
+        assertNotEquals(hash, saltedHash);
+        assertEquals(hash, ShaHashing.calculateHashHex("test", null, HashAlgorithm.SHA512));
+        assertEquals(saltedHash, ShaHashing.calculateHashHex("test", "seed", HashAlgorithm.SHA512));
     }
 }
