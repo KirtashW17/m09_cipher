@@ -5,6 +5,9 @@ import javax.crypto.spec.IvParameterSpec;
 import java.security.GeneralSecurityException;
 import java.security.Key;
 
+/**
+ *  TODO DOCUMENTATION
+ */
 public class SymmetricEncryption {
 
     //  A l’hora d’implementar un exemple d’encriptació simètrica en Java, no tot és tan senzill com fer les crides
@@ -12,10 +15,12 @@ public class SymmetricEncryption {
     //  Java JCE/JCA que utilitzi un “seed” aleatori addicional al contingut que voleu encriptar.
     //  Això es fa per tal que el resultat de l’encriptació no segueixi el mateix patró i per tant es pugui arribar a desencriptar.
 
-    // TODO Symmetric with iv / seed
-    // TODO JCE/JCA
     // TODO CIFRAR ARCHIVOS
+    // TODO: Ojo: CBC != ECB. Documentar
 
+    /**
+     *  TODO DOCUMENTATION
+     */
     public static byte[] encrypt(byte[] input, Key key) throws GeneralSecurityException {
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
         cipher.init(Cipher.ENCRYPT_MODE, key);
@@ -23,18 +28,27 @@ public class SymmetricEncryption {
         return cipher.doFinal(input);
     }
 
+    /**
+     *  TODO DOCUMENTATION
+     */
     public static byte[] encryptWithSeed(byte[] input, Key key, IvParameterSpec seed) throws GeneralSecurityException {
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
         cipher.init(Cipher.ENCRYPT_MODE, key, seed);
         return cipher.doFinal(input);
     }
 
+    /**
+     *  TODO DOCUMENTATION
+     */
     public static byte[] decryptWithSeed(byte[] input, Key key, IvParameterSpec seed) throws GeneralSecurityException {
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
         cipher.init(Cipher.DECRYPT_MODE, key, seed);
         return cipher.doFinal(input);
     }
 
+    /**
+     *  TODO DOCUMENTATION
+     */
     public static byte[] decrypt(byte[] input, Key key) throws GeneralSecurityException {
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
         cipher.init(Cipher.DECRYPT_MODE, key);

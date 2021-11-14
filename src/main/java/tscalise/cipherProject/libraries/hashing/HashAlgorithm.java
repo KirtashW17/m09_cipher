@@ -1,5 +1,8 @@
 package tscalise.cipherProject.libraries.hashing;
 
+/**
+ *  TODO DOCUMENTATION
+ */
 public enum HashAlgorithm {
     SHA1("SHA-1", 20),
     SHA256("SHA-256", 32),
@@ -8,7 +11,7 @@ public enum HashAlgorithm {
     public final int bytes;
     public String label;
 
-    private HashAlgorithm(String label, int bytes) {
+    HashAlgorithm(String label, int bytes) {
         this.bytes = bytes;
         this.label = label;
     }

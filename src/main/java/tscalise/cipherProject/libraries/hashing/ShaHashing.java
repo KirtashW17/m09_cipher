@@ -5,6 +5,9 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ *  TODO DOCUMENTATION
+ */
 public class ShaHashing {
 
     // TODO: Documentar
@@ -12,54 +15,89 @@ public class ShaHashing {
     //  Us heu d’inventar una aplicació pràctica del Hash i implementar-la mitjançant Java.
     //  A l’aplicatiu heu d’explicar quina utilitat heu trobat per el tema del Hash.
 
+    // TODO: Get hash from file (use update method)
+
+    /**
+     *  TODO DOCUMENTATION
+     */
     public static String getSHA1(String input) {
         return getHash(input, null, HashAlgorithm.SHA1);
     }
-
+    /**
+     *  TODO DOCUMENTATION
+     */
     public static String getSHA1(String input, String seed) {
         return getHash(input, seed, HashAlgorithm.SHA1);
     }
-
-    public static String getSHA256(String input) {
-        return getHash(input, null, HashAlgorithm.SHA256);
-    }
-
-    public static String getSHA256(String input, String seed) {
-        return getHash(input, seed, HashAlgorithm.SHA256);
-    }
-
-    public static String getSHA512(String input) {
-        return getHash(input, null, HashAlgorithm.SHA512);
-    }
-
-    public static String getSHA512(String input, String seed) {
-        return getHash(input, seed, HashAlgorithm.SHA512);
-    }
-
+    /**
+     *  TODO DOCUMENTATION
+     */
     public static String getSHA1(byte[] input) {
         return getHash(input, null, HashAlgorithm.SHA1);
     }
-
+    /**
+     *  TODO DOCUMENTATION
+     */
     public static String getSHA1(byte[] input, byte[] seed) {
         return getHash(input, seed, HashAlgorithm.SHA1);
     }
-
+    /**
+     *  TODO DOCUMENTATION
+     */
+    public static String getSHA256(String input) {
+        return getHash(input, null, HashAlgorithm.SHA256);
+    }
+    /**
+     *  TODO DOCUMENTATION
+     */
+    public static String getSHA256(String input, String seed) {
+        return getHash(input, seed, HashAlgorithm.SHA256);
+    }
+    /**
+     *  TODO DOCUMENTATION
+     */
     public static String getSHA256(byte[] input) {
         return getHash(input, null, HashAlgorithm.SHA256);
     }
-
+    /**
+     *  TODO DOCUMENTATION
+     */
     public static String getSHA256(byte[] input, byte[] seed) {
         return getHash(input, seed, HashAlgorithm.SHA256);
     }
-
+    /**
+     *  TODO DOCUMENTATION
+     */
+    public static String getSHA512(String input) {
+        return getHash(input, null, HashAlgorithm.SHA512);
+    }
+    /**
+     *  TODO DOCUMENTATION
+     */
+    public static String getSHA512(String input, String seed) {
+        return getHash(input, seed, HashAlgorithm.SHA512);
+    }
+    /**
+     *  TODO DOCUMENTATION
+     */
     public static String getSHA512(byte[] input) {
         return getHash(input, null, HashAlgorithm.SHA512);
     }
-
+    /**
+     *  TODO DOCUMENTATION
+     */
     public static String getSHA512(byte[] input, byte[] seed) {
         return getHash(input, seed, HashAlgorithm.SHA512);
     }
 
+
+    /**
+     * Genera el "resumen" de una entrada dada la entrada, la semilla (opcional)
+     * @param input Bytes de entrada a partir de los cuales se calculará el resumen
+     * @param seed Semilla para modificar la salida de la función resumen
+     * @param algorithm Algoritmo con el cual queremos generar la función resumen
+     * @return Función resumen en formato String
+     */
     private static String getHash(byte[] input, byte[] seed, HashAlgorithm algorithm) {
         if (seed != null) {
             byte[] tmp = new byte[input.length + seed.length];
@@ -97,16 +135,28 @@ public class ShaHashing {
         }
     }
 
+    /**
+     * Genera el "resumen" de una entrada dada la entrada, la semilla (opcional)
+     * @param input String de entrada a partir de los cuales se calculará el resumen
+     * @param seed Semilla para modificar la salida de la función resumen
+     * @param algorithm Algoritmo con el cual queremos generar la función resumen
+     * @return Función resumen en formato String
+     */
     private static String getHash(String input, String seed, HashAlgorithm algorithm) {
-
-        // Podem posar el seed on vulguem: al començament, al final, als dos o fins i tot al centre.
+        byte[] seedBytes = null;
         if (seed != null)
-            input = input.substring(0, input.length() / 2) + seed + input.substring(input.length() / 2);
+            seedBytes = seed.getBytes(StandardCharsets.UTF_8);
 
-
-        return getHash(input.getBytes(StandardCharsets.UTF_8), null, algorithm);
+        return getHash(input.getBytes(StandardCharsets.UTF_8), seedBytes, algorithm);
     }
 
+    /**
+     * Genera el "resumen" de una entrada dada la entrada, la semilla (opcional)
+     * @param input String de entrada a partir de los cuales se calculará el resumen
+     * @param seed Semilla para modificar la salida de la función resumen
+     * @param algorithm Algoritmo con el cual queremos generar la función resumen
+     * @return Función resumen en formato String
+     */
     private static String getHash(String input, String seed, String algorithm) throws IllegalArgumentException {
         return getHash(input, seed, HashAlgorithm.valueOf(algorithm));
     }

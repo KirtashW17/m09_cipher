@@ -1,4 +1,4 @@
-package tscalise.cipherProject.libraries.signature;
+package tscalise.cipherProject.libraries.digitalSignature;
 
 public class Signature {
 

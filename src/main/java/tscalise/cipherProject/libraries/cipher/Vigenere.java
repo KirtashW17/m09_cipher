@@ -2,7 +2,7 @@ package tscalise.cipherProject.libraries.cipher;
 
 public class Vigenere {
 
-    // todo: acabar
+    // todo: acabar si eso
 
     //     private int[][] table = new int[26][52];
 

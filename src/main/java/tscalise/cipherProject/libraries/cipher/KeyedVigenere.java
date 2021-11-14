@@ -3,12 +3,17 @@ package tscalise.cipherProject.libraries.cipher;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ *  TODO DOCUMENTATION
+ */
 public class KeyedVigenere {
 
     // Abecedario modificado
-    private final char[] alphabetModificator = new char[26];
+    private final char[] customAlphabet;
     // Clave secreta
-    private String passphrase;
+    private final String passphrase;
+
+    // TODO explicar skippedChars para que el resultado sea igual que en cipherTools
 
     /**
      * Constructor
@@ -16,16 +21,16 @@ public class KeyedVigenere {
      * @param passphrase Clave secreta
      */
     public KeyedVigenere(String alphabetModificator, String passphrase) {
-        initializeAlphabetModificator(alphabetModificator); // Inicializamos la Array 'alphabetModificator'
-        initializePassphrase(passphrase); // Inicializamos la String 'passphrase'
+        customAlphabet = generateAlphabet(alphabetModificator); // Inicializamos la Array 'alphabetModificator'
+        this.passphrase = generatePassphrase(passphrase); // Inicializamos la String 'passphrase'
     }
 
     /**
      * Getter de alphabetModificator
      * @return alphabetModificator actual
      */
-    public char[] getAlphabetModificator() {
-        return alphabetModificator;
+    public char[] getCustomAlphabet() {
+        return customAlphabet;
     }
 
     /**
@@ -53,7 +58,7 @@ public class KeyedVigenere {
             int displacement = getAlphabetPosition(passphrase.charAt((i - skippedChars) % passphrase.length()));
             int position = getAlphabetPosition(chars[i]); // Posición del caracter actual sin desplazar
         if (!(chars[i] >= 65 && chars[i] <= 90 || chars[i] >= 97 && chars[i] <= 122))
-            // En caso de que el caracter no esté comprendido en [A-Za-z] sumamos 1 a skippedChars
+            // En caso de que el caracter no esté comprendido en [A-Za-z] sumamos 1 a skippedChars.
             skippedChars ++;
         else {
             if (position - displacement < 0)
@@ -65,10 +70,10 @@ public class KeyedVigenere {
 
             if (chars[i] >= 65 && chars[i] <= 90)
                 // [A-Z] UPPERCASE:  Añadimos la letra que esté en la posición 'position' del abecedario
-                chars[i] = alphabetModificator[position];
+                chars[i] = customAlphabet[position];
             else
-                // '' y la convertimos a minúscula
-                chars[i] = Character.toLowerCase(alphabetModificator[position]);
+                // [a-z] lowercase: Convertimos a minúscula la letra que esté en la posición 'position' del abecedario y añadimos
+                chars[i] = Character.toLowerCase(customAlphabet[position]);
             }
         }
         return new String(chars); // Devolvemos una String formada por la array de caracters modificada
@@ -93,7 +98,7 @@ public class KeyedVigenere {
             int displacement = getAlphabetPosition(passphrase.charAt((i - skippedChars) % passphrase.length()));
             int position = getAlphabetPosition(chars[i]); // Posición del caracter actual sin desplazar
             if (!(chars[i] >= 65 && chars[i] <= 90 || chars[i] >= 97 && chars[i] <= 122))
-                // En caso de que el caracter no esté comprendido en [A-Za-z] sumamos 1 a skippedChars
+                // En caso de que el caracter no esté comprendido en [A-Za-z] sumamos 1 a skippedChars.
                 skippedChars ++;
             else {
                 if (position + displacement > 25)
@@ -105,20 +110,22 @@ public class KeyedVigenere {
 
                 if (chars[i] >= 65 && chars[i] <= 90)
                     // [A-Z] UPPERCASE:  Añadimos la letra que esté en la posición 'position' del abecedario
-                    chars[i] = alphabetModificator[position];
+                    chars[i] = customAlphabet[position];
                 else
-                    // '' y la convertimos a minúscula
-                    chars[i] = Character.toLowerCase(alphabetModificator[position]);
+                    // [a-z] lowercase: Convertimos a minúscula la letra que esté en la posición 'position' del abecedario y añadimos
+                    chars[i] = Character.toLowerCase(customAlphabet[position]);
             }
         }
         return new String(chars); // Devolvemos una String formada por la array de caracters modificada
     }
 
     /**
-     * Inicializa la String del abecedario (alphabetModificator)
+     * Genera el vector del abecedario modificado (customAlphabet)
+     * Es público i estático para poder mostrar el abecedario que se creará en tiempo real
      * @param alphabetModificator Clave modificadora del abecedario, el abecedario se modificará en base a esta.
      */
-    private void initializeAlphabetModificator(String alphabetModificator) {
+    public static char[] generateAlphabet(String alphabetModificator) {
+        char[] alphabet = new char[26];
         alphabetModificator = alphabetModificator.toUpperCase(); // Pasa la String a mayúscula
         int alphabetPointer = 0; // Inicializamos un puntero enla posición 0
         List<Character> alphabetChars = new ArrayList<>(); // Creamos una lista que contendrá todas lasletras del abecedario
@@ -133,7 +140,7 @@ public class KeyedVigenere {
             char ch = alphabetModificator.charAt(i); // Guardamos en una variable el caracter actual
             if (alphabetChars.remove((Object) ch)) {
                 // Si el caracter aún no ha sido removido de alphabetChars, lo insertamos en alphabetModificator en la posición del puntero.
-                this.alphabetModificator[alphabetPointer] = ch;
+                alphabet[alphabetPointer] = ch;
                 // Y sumamos 1 al puntero
                 alphabetPointer++;
             }
@@ -141,17 +148,18 @@ public class KeyedVigenere {
 
         while (alphabetPointer < 26) {
             // Si aún no hemos insertado 26 caracteres en nuestro vector, insertamos todos los que quedan en la lista.
-            this.alphabetModificator[alphabetPointer] = alphabetChars.remove(0);
+            alphabet[alphabetPointer] = alphabetChars.remove(0);
             alphabetPointer++;
         }
+
+        return alphabet;
     }
 
-    // TODO MAKE PUBLIC STATIC WITH RETURN VALUE
     /**
-     * Inicializa la passphrase
+     * Genera la passphrase amb format correcte a partir d'una passphrase bruta
      * @param passphrase Passphrase bruta
      */
-    private void initializePassphrase(String passphrase) {
+    private String generatePassphrase(String passphrase) {
         passphrase = passphrase.toUpperCase(); // Pasamos la passphrase a mayúscula
         StringBuilder sb = new StringBuilder(); // Inicializamos un StringBuilder en el cual insertaremos la passphrase final
 
@@ -163,7 +171,7 @@ public class KeyedVigenere {
         }
 
         // Asignamos la passphrase filtrada a la variable de instancai passphrase.
-        this.passphrase = sb.toString();
+        return sb.toString();
     }
 
     /**
@@ -177,7 +185,7 @@ public class KeyedVigenere {
 
         for (int i = 0; i < 26; i++) {
             // Iteramos sobre todos los caracteres hasta que encontremos el que buscamos
-            if (alphabetModificator[i] == c) {
+            if (customAlphabet[i] == c) {
                 // Si encontramos el caracter, asignamos el valor de i a position y salimos del bucle.
                 position = i;
                 break;

@@ -15,7 +15,7 @@ class KeyedVigenereTest {
         char[] expectedAlphabet = {'M', 'Y', 'A', 'L', 'P', 'H', 'B', 'E', 'T', 'O', 'D', 'I', 'F', 'C', 'R',
                 'G', 'J', 'K', 'N', 'Q', 'S', 'U', 'V', 'W', 'X', 'Z'};
 
-        assertArrayEquals(expectedAlphabet, keyedVigenere.getAlphabetModificator());
+        assertArrayEquals(expectedAlphabet, keyedVigenere.getCustomAlphabet());
         assertEquals("MYPASSPHRASE", keyedVigenere.getPassphrase());
     }
 
