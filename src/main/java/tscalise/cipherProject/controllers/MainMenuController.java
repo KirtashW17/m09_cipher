@@ -19,12 +19,32 @@ public class MainMenuController {
 
     @FXML
     public void showKeyedVigenereView() {
-        changeScene("views/cipher/keyed_vigenere.fxml", "Keyed Vigenere Cipher");
+        changeScene("views/cipher/keyed_vigenere.fxml", "Cifrado Keyed Vigenere");
     }
 
     @FXML
     public void showHashingView() {
-        changeScene("views/hashing/hashing.fxml", "Hashing Tool");
+        changeScene("views/hashing/hash_from_string.fxml", "Calcular Función Resumen");
+    }
+
+    @FXML
+    public void showSymmetricEncryptionView() {
+        changeScene("views/encryption/symmetric_encryption.fxml", "Cifrado Simétrico");
+    }
+
+    @FXML
+    public void showAsymmetricEncryptionView() {
+        changeScene("views/encryption/asymmetric_encryption.fxml", "Cifrado Asimétrico");
+    }
+
+    @FXML
+    public void showSignFileView() {
+        changeScene("views/digitalSignature/sign_file.fxml", "Firmar un archivo");
+    }
+
+    @FXML
+    public void showVerifyFileSignatureView() {
+        changeScene("views/encryption/verify_file_signature.fxml", "Comprobar firma digital");
     }
 
     /**

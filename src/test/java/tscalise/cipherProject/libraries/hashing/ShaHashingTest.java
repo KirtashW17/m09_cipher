@@ -8,6 +8,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class ShaHashingTest {
 
+    /**
+     * Este test lo he generado para comprobar si tenia que hacer un trim del ByteBuffer que uso al generar un hash
+     *  a partir de un archivo, y evidentemente si, ya que si no el hash resultante no sería correcto.
+     */
     @Test
     void digestOfBuffTest() throws NoSuchAlgorithmException {
         byte[] a, b;

@@ -1,6 +1,7 @@
 package tscalise.cipherProject.libraries.encryption;
 
 import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
 import java.security.GeneralSecurityException;
 import java.security.Key;
@@ -24,7 +25,7 @@ public class SymmetricEncryption {
     /**
      *  TODO DOCUMENTATION
      */
-    public static byte[] encrypt(byte[] input, Key key) throws GeneralSecurityException {
+    public static byte[] encrypt(byte[] input, SecretKey key) throws GeneralSecurityException {
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
         cipher.init(Cipher.ENCRYPT_MODE, key);
 
@@ -34,7 +35,7 @@ public class SymmetricEncryption {
     /**
      *  TODO DOCUMENTATION
      */
-    public static byte[] encryptWithSeed(byte[] input, Key key, IvParameterSpec seed) throws GeneralSecurityException {
+    public static byte[] encryptWithSeed(byte[] input, SecretKey key, IvParameterSpec seed) throws GeneralSecurityException {
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
         cipher.init(Cipher.ENCRYPT_MODE, key, seed);
         return cipher.doFinal(input);
@@ -43,7 +44,7 @@ public class SymmetricEncryption {
     /**
      *  TODO DOCUMENTATION
      */
-    public static byte[] decryptWithSeed(byte[] input, Key key, IvParameterSpec seed) throws GeneralSecurityException {
+    public static byte[] decryptWithSeed(byte[] input, SecretKey key, IvParameterSpec seed) throws GeneralSecurityException {
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
         cipher.init(Cipher.DECRYPT_MODE, key, seed);
         return cipher.doFinal(input);
@@ -52,7 +53,7 @@ public class SymmetricEncryption {
     /**
      *  TODO DOCUMENTATION
      */
-    public static byte[] decrypt(byte[] input, Key key) throws GeneralSecurityException {
+    public static byte[] decrypt(byte[] input, SecretKey key) throws GeneralSecurityException {
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
         cipher.init(Cipher.DECRYPT_MODE, key);
 

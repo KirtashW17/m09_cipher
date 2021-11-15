@@ -36,7 +36,7 @@ public class HashingController {
     private TextArea TAoutput;
 
     // TODO: COPY BUTTON
-
+    // TODO: Mostrar seed aleatorio
 
     @FXML
     public void exit() {

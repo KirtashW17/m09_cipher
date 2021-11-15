@@ -4,9 +4,11 @@ import org.junit.jupiter.api.Test;
 import tscalise.cipherProject.libraries.hashing.HashAlgorithm;
 import tscalise.cipherProject.libraries.hashing.ShaHashing;
 
-import javax.crypto.spec.IvParameterSpec;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
+import java.security.cert.Certificate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,9 +29,10 @@ class AsymmetricEncryptionTest {
 
         a = str.getBytes(StandardCharsets.UTF_8);
 
-        b = AsymmetricEncryption.encrypt(a, keyPair.getPublic(), null);
-        assertArrayEquals(a, AsymmetricEncryption.decrypt(b, keyPair.getPrivate(), null));
-        assertEquals(str, new String(AsymmetricEncryption.decrypt(b, keyPair.getPrivate(), null)));
+        b = AsymmetricEncryption.encrypt(a, keyPair.getPublic());
+
+        assertArrayEquals(a, AsymmetricEncryption.decrypt(b, keyPair.getPrivate()));
+        assertEquals(str, new String(AsymmetricEncryption.decrypt(b, keyPair.getPrivate())));
     }
 
     @Test
@@ -42,8 +45,8 @@ class AsymmetricEncryptionTest {
         KeyPair keyPair = kpGen.generateKeyPair();
 
         original = message.getBytes(StandardCharsets.UTF_8);
-        crypted = AsymmetricEncryption.encrypt(original, keyPair.getPublic(), null);
-        decrypted = AsymmetricEncryption.decrypt(crypted, keyPair.getPrivate(), null);
+        crypted = AsymmetricEncryption.encrypt(original, keyPair.getPublic());
+        decrypted = AsymmetricEncryption.decrypt(crypted, keyPair.getPrivate());
 
         ahash = ShaHashing.calculateHashHex(original, null, HashAlgorithm.SHA256);
         bhash = ShaHashing.calculateHashHex(decrypted, null, HashAlgorithm.SHA256);
@@ -53,33 +56,33 @@ class AsymmetricEncryptionTest {
         assertEquals(message, new String(decrypted));
     }
 
-//    @Test
-//    void verifySignature() throws  GeneralSecurityException{
-//        String str = "1";
-//        byte[] a, b;
-//
-//        KeyPairGenerator kpGen = KeyPairGenerator.getInstance("RSA");
-//        kpGen.initialize(1024);
-//        KeyPair keyPairA = kpGen.generateKeyPair();
-//        KeyPair keyPairB = kpGen.generateKeyPair();
-//
-//        a = str.getBytes(StandardCharsets.UTF_8);
-//
-////        IvParameterSpec seed = generateSeed();
-//
-//        b = AsymmetricEncryption.cryptAndSign(a, keyPairB.getPublic(), keyPairA.getPrivate(), null);
-//        byte[] decryptedBytes = AsymmetricEncryption.decrypt(b, keyPairB.getPrivate());
-//        byte[] messageBytes = AsymmetricEncryption.trimSignature(decryptedBytes);
-//        byte[] signatureBytes = AsymmetricEncryption.getSignature(decryptedBytes);
-//        assertTrue(AsymmetricEncryption.verifySignature(messageBytes, signatureBytes, keyPairA.getPublic()));
-////        assertArrayEquals(a, AsymmetricEncryption.decrypt(b, keyPair.getPrivate()));
-////        assertEquals(str, new String(AsymmetricEncryption.decrypt(b, keyPair.getPrivate())));
-//    }
+    /**
+     * Este test lo he generado para probar el funcionamiento de las KeyStores y demostrar que mis actuales
+     *  métodos pueden trabajar con claves almacenadas en un KeyStore
+     */
+    @Test
+    void asymmetricEncryptionWithKeystore() throws GeneralSecurityException, IOException {
+        // Cargamos la clave pública de B para cifrar desde A
+        KeyStore keyStore = KeyStore.getInstance("JKS");
+        keyStore.load(new FileInputStream("a_keystore.jks"), "123456".toCharArray());
+        Certificate certificate = keyStore.getCertificate("bCertificate");
+        PublicKey publicKey = certificate.getPublicKey();
 
-    private IvParameterSpec generateSeed() throws NoSuchAlgorithmException {
-        SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
-        byte[] random = new byte[16];
-        sr.nextBytes(random);
-        return new IvParameterSpec(random);
+        // 128 chars input
+        String str = "testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest";
+        byte[] a, b;
+
+        a = str.getBytes(StandardCharsets.UTF_8);
+
+        b = AsymmetricEncryption.encrypt(a, publicKey);
+
+        // Cargamos la clave privada de B para descifrar desde B
+        keyStore.load(new FileInputStream("b_keystore.jks"), "123456".toCharArray());
+        PrivateKey privateKey = (PrivateKey) keyStore.getKey("bKeyPair", "123456".toCharArray());
+
+
+        assertArrayEquals(a, AsymmetricEncryption.decrypt(b, privateKey));
+        assertEquals(str, new String(AsymmetricEncryption.decrypt(b, privateKey)));
     }
+
 }

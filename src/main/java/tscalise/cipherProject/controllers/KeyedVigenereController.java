@@ -25,8 +25,6 @@ public class KeyedVigenereController {
 
     // TODO: COPY BUTTON
 
-
-
     @FXML
     public void pressExitButton() {
         Stage stage = (Stage) TAinput.getScene().getWindow() ;

@@ -20,13 +20,13 @@
                   <RadioButton fx:id="RBsha256" layoutX="100.0" layoutY="96.0" mnemonicParsing="false" text="SHA256" toggleGroup="$TGhashAlgorythm" />
                   <RadioButton fx:id="RBsha512" layoutX="182.0" layoutY="96.0" mnemonicParsing="false" text="SHA512" toggleGroup="$TGhashAlgorythm" />
                   <CheckBox fx:id="CBseed" layoutX="27.0" layoutY="163.0" mnemonicParsing="false" onAction="#seedCBAction" text="Semilla" />
-                  <RadioButton fx:id="RBrandom" disable="true" layoutX="39.0" layoutY="194.0" mnemonicParsing="false" onAction="#swtchSeedModeRB" text="Aleatoria">
+                  <RadioButton fx:id="RBrandom" disable="true" layoutX="39.0" layoutY="194.0" mnemonicParsing="false" onAction="#swtchSeedModeRB" selected="true" text="Aleatoria">
                      <toggleGroup>
                         <ToggleGroup fx:id="TGseedMode" />
                      </toggleGroup></RadioButton>
                   <RadioButton fx:id="RBmanual" disable="true" layoutX="40.0" layoutY="223.0" mnemonicParsing="false" onAction="#swtchSeedModeRB" text="Manual" toggleGroup="$TGseedMode" />
                   <TextField fx:id="TFseed" disable="true" layoutX="119.0" layoutY="220.0" prefHeight="26.0" prefWidth="157.0" />
-                  <Separator layoutX="48.0" layoutY="39.0" prefWidth="200.0" />
+                  <Separator layoutX="38.0" layoutY="39.0" prefHeight="3.0" prefWidth="210.0" />
                   <Label layoutX="34.0" layoutY="65.0" prefHeight="3.0" prefWidth="73.0" text="Algoritmo:" />
                   <Button layoutX="175.0" layoutY="360.0" mnemonicParsing="false" onAction="#pressActionButton" prefHeight="24.0" prefWidth="108.0" text="Calcular Hash" />
                   <Button layoutX="5.0" layoutY="360.0" mnemonicParsing="false" onAction="#exit" text="Salir" />
