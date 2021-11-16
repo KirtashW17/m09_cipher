@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tscalise.cipherProject.controllers.AsymmetricEncryptionController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tscalise.cipherProject.controllers.AsymmetricEncryptionController">
    <children>
       <Text layoutX="244.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cifrado Asimetrico" />
       <Separator layoutX="200.0" layoutY="37.0" prefWidth="200.0" />
@@ -24,18 +29,20 @@
       <Label layoutX="14.0" layoutY="170.0" text="Clave a usar:" />
       <Label layoutX="102.0" layoutY="190.0" text="a_keystore" />
       <Label layoutX="102.0" layoutY="223.0" text="b_keystore" />
-      <RadioButton fx:id="aKeystore_aPrivate" layoutX="192.0" layoutY="189.0" mnemonicParsing="false" text="a_private">
+      <RadioButton fx:id="aKeystore_aPrivate" layoutX="382.0" layoutY="191.0" mnemonicParsing="false" onAction="#switchKey" text="a_private">
          <toggleGroup>
             <ToggleGroup fx:id="TGkey" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="RBaKeystore_aPublic" layoutX="290.0" layoutY="189.0" mnemonicParsing="false" selected="true" text="a_public" toggleGroup="$TGkey" />
-      <RadioButton fx:id="RBaKeystore_bPublic" layoutX="382.0" layoutY="189.0" mnemonicParsing="false" text="b_public" toggleGroup="$TGkey" />
-      <RadioButton fx:id="RBbKeystore_bPrivate" layoutX="192.0" layoutY="222.0" mnemonicParsing="false" text="b_private" toggleGroup="$TGkey" />
-      <RadioButton fx:id="RBbKeystore_bPublic" layoutX="290.0" layoutY="222.0" mnemonicParsing="false" text="b_public" toggleGroup="$TGkey" />
-      <RadioButton fx:id="RBbKeystore_aPublic" layoutX="382.0" layoutY="222.0" mnemonicParsing="false" text="a_public" toggleGroup="$TGkey" />
+      <RadioButton fx:id="RBaKeystore_aPublic" disable="true" layoutX="290.0" layoutY="189.0" mnemonicParsing="false" onAction="#switchKey" selected="true" text="a_public" toggleGroup="$TGkey" />
+      <RadioButton fx:id="RBaKeystore_bPublic" layoutX="192.0" layoutY="189.0" mnemonicParsing="false" onAction="#switchKey" selected="true" text="b_public" toggleGroup="$TGkey" />
+      <RadioButton fx:id="RBbKeystore_bPrivate" layoutX="382.0" layoutY="222.0" mnemonicParsing="false" onAction="#switchKey" text="b_private" toggleGroup="$TGkey" />
+      <RadioButton fx:id="RBbKeystore_bPublic" disable="true" layoutX="290.0" layoutY="222.0" mnemonicParsing="false" onAction="#switchKey" text="b_public" toggleGroup="$TGkey" />
+      <RadioButton fx:id="RBbKeystore_aPublic" layoutX="192.0" layoutY="222.0" mnemonicParsing="false" onAction="#switchKey" text="a_public" toggleGroup="$TGkey" />
       <Button layoutX="490.0" layoutY="362.0" mnemonicParsing="false" onAction="#pressActionButton" text="Cifrar" />
       <Button layoutX="28.0" layoutY="362.0" mnemonicParsing="false" onAction="#pressExitButton" text="Salir" />
       <Button layoutX="86.0" layoutY="362.0" mnemonicParsing="false" onAction="#pressClearButton" text="Vaciar Campos" />
+      <Label layoutX="255.0" layoutY="260.0" text="Publica" />
+      <Label layoutX="408.0" layoutY="260.0" text="Privada" />
    </children>
 </AnchorPane>

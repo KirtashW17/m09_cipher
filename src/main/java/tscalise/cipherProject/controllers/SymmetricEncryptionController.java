@@ -1,7 +1,6 @@
 package tscalise.cipherProject.controllers;
 
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -12,7 +11,7 @@ import javafx.stage.WindowEvent;
 
 import java.io.File;
 
-import static tscalise.cipherProject.libraries.Utils.Utilities.showFileChooser;
+import static tscalise.cipherProject.libraries.utils.Utilities.showFileChooser;
 
 public class SymmetricEncryptionController extends EncryptionController {
 
@@ -48,37 +47,6 @@ public class SymmetricEncryptionController extends EncryptionController {
     @FXML
     public void switchAction() {
 
-    }
-
-    @FXML
-    public void pressSelectSourceButton() {
-        String title = "Seleccionar archivo de origen";
-        Stage stage = (Stage) TFautoSeed.getScene().getWindow();
-        File selectedFile = showFileChooser(title, false, stage, null);
-
-        if (selectedFile != null) {
-            String filePath = selectedFile.getAbsolutePath();
-            TFsourceFile.setText(filePath);
-            TFdestinationFile.setText(filePath + ".enc");
-        }
-    }
-
-    @FXML
-    public void pressSelectDestinationButton() {
-        String title = "Seleccionar ruta de destinación";
-        Stage stage = (Stage) TFautoSeed.getScene().getWindow();
-        FileChooser.ExtensionFilter[] extensionFilters =
-                { new FileChooser.ExtensionFilter("ENC files (*.enc)", "*.enc") };
-
-        File selectedFile = showFileChooser(title, true, stage, extensionFilters);
-
-        if (selectedFile != null) {
-            String filePath = selectedFile.getAbsolutePath();
-            if(!selectedFile.getName().contains(".")) {
-                filePath = filePath + ".enc";
-            }
-            TFdestinationFile.setText(filePath);
-        }
     }
 
     @FXML

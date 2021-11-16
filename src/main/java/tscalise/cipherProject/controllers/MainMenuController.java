@@ -44,7 +44,7 @@ public class MainMenuController {
 
     @FXML
     public void showVerifyFileSignatureView() {
-        changeScene("views/encryption/verify_file_signature.fxml", "Comprobar firma digital");
+        changeScene("views/digitalSignature/verify_file_signature.fxml", "Comprobar firma digital");
     }
 
     /**

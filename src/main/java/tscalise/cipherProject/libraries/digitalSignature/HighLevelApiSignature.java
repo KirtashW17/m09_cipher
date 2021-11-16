@@ -2,7 +2,10 @@ package tscalise.cipherProject.libraries.digitalSignature;
 
 import java.io.*;
 import java.security.*;
+import java.security.interfaces.RSAKey;
 import java.util.Arrays;
+
+import static tscalise.cipherProject.libraries.utils.Utilities.getKeySize;
 
 /**
  * Esta clase permite firmar vectores de bytes y archivos usando la API de alto nivel de Java.
@@ -38,7 +41,7 @@ public class HighLevelApiSignature {
      * @throws GeneralSecurityException
      */
     public static byte[] signBytes(byte[] byteArray, PrivateKey privateKey) throws GeneralSecurityException {
-        int signatureSize = 128;
+        int signatureSize = getKeySize((RSAKey) privateKey);
         byte[] signedBytes = Arrays.copyOf(byteArray, byteArray.length + signatureSize);
         byte[] signatureBytes = generateSignatureFromByteArrays(byteArray, privateKey);
         System.arraycopy(signatureBytes, 0, signedBytes, byteArray.length, signatureSize);

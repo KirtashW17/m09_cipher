@@ -1,13 +1,13 @@
 package tscalise.cipherProject.libraries.encryption;
 
-import javax.crypto.Cipher;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.*;
+import java.io.*;
 import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.interfaces.RSAKey;
 import java.util.Arrays;
+
+import static tscalise.cipherProject.libraries.utils.Utilities.getKeySize;
 
 /**
  * En esta clase encontraremos métodos para poder cifrar/descifrar usando Cifrado Asimétrico con el
@@ -142,32 +142,45 @@ public class AsymmetricEncryption {
         return decryptedBytes;
     }
 
-    /**
-     * Devuelve el tamaño de una clave en bits dada la clave misma
-     * No podemos retornar directamente bitLength ya que en ciertos casos tiene 0's delante, dando como resultado un
-     *  número que no es una potencia de 2 y no es un tamaño de clave válido.
-     * @param key RSAKey de la cual deseamos conocer el tamaño
-     * @return Tamaño de la clave en bits
-     */
-    private static int getKeySize(RSAKey key) {
-        int keySize;
-        int bitLength = key.getModulus().bitLength();
-        if (bitLength <= 512) {
-            throw new IllegalArgumentException("Invalid Key size.");
+    // TODO CONTROL DE EXCEPCIONES
+    // todo return boolean
+    // TODO normalize name (encryptFile)
+    public static void cryptFile(File fileSource, File fileDestination, Key key) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+        int buffSize = getKeySize((RSAKey) key) / 8 - 11;
+        BufferedInputStream in = new BufferedInputStream(new FileInputStream(fileSource));
+        BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(fileDestination));
+        byte[] buff = new byte[buffSize];
+
+        Cipher cipher = Cipher.getInstance("RSA");
+        cipher.init(Cipher.ENCRYPT_MODE, key);
+
+        int readBytes;
+        while ((readBytes = in.read(buff)) > 0) {
+            if (readBytes < buffSize)
+                buff = Arrays.copyOf(buff, readBytes);
+            out.write(cipher.doFinal(buff));
         }
-        else if (bitLength <= 1024) {
-            keySize = 1024;
-        }
-        else if (bitLength <= 2048) {
-            keySize = 2048;
-        }
-        else if (bitLength <= 4096) {
-            keySize = 4096;
-        }
-        else {
-            throw new IllegalArgumentException("Invalid Key size.");
-        }
-        return keySize;
+        in.close();
+        out.flush();
+        out.close();
     }
 
-}
+    public static void decryptFile(File fileSource, File fileDestination, Key key) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+        int buffSize = getKeySize((RSAKey) key) / 8;
+        BufferedInputStream in = new BufferedInputStream(new FileInputStream(fileSource));
+        BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(fileDestination));
+        byte[] buff = new byte[buffSize];
+
+        Cipher cipher = Cipher.getInstance("RSA");
+        cipher.init(Cipher.DECRYPT_MODE, key);
+
+        int readBytes;
+        while ((readBytes = in.read(buff)) > 0) {
+            if (readBytes < buffSize)
+                buff = Arrays.copyOf(buff, readBytes);
+            out.write(cipher.doFinal(buff));
+        }
+        in.close();
+        out.flush();
+        out.close();
+    }}

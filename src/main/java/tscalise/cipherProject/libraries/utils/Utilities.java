@@ -1,15 +1,15 @@
-package tscalise.cipherProject.libraries.Utils;
+package tscalise.cipherProject.libraries.utils;
 
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.IOException;
 import java.math.BigInteger;
-import javax.swing.*;
+import java.security.interfaces.RSAKey;
+import java.util.Base64;
 
 public class Utilities {
-
+    
     public static File showFileChooser(String title, boolean save, Stage stage, FileChooser.ExtensionFilter[] extensionFilters) {
         File selectedFile;
         FileChooser fileChooser = new FileChooser();
@@ -61,6 +61,43 @@ public class Utilities {
         }
         return data;
     }
+
+    /**
+     * Devuelve el tamaño de una clave en bits dada la clave misma
+     * No podemos retornar directamente bitLength ya que en ciertos casos tiene 0's delante, dando como resultado un
+     *  número que no es una potencia de 2 y no es un tamaño de clave válido.
+     * @param key RSAKey de la cual deseamos conocer el tamaño
+     * @return Tamaño de la clave en bits
+     */
+    public static int getKeySize(RSAKey key) {
+        int keySize;
+        int bitLength = key.getModulus().bitLength();
+        if (bitLength <= 512) {
+            throw new IllegalArgumentException("Invalid Key size.");
+        }
+        else if (bitLength <= 1024) {
+            keySize = 1024;
+        }
+        else if (bitLength <= 2048) {
+            keySize = 2048;
+        }
+        else if (bitLength <= 4096) {
+            keySize = 4096;
+        }
+        else {
+            throw new IllegalArgumentException("Invalid Key size.");
+        }
+        return keySize;
+    }
+
+    public String bytesToBase64(byte[] bytes) {
+        return Base64.getEncoder().encodeToString(bytes);
+    }
+
+    public byte[] Base64StringToBytes(String b64String) {
+        return Base64.getDecoder().decode(b64String);
+    }
+
 
 
 }

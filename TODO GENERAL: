@@ -5,7 +5,12 @@
 # TODO: Check Warnings
 # TODO: KEYSTORE CREATE, EXPORT AND IMPORT PROGRAMMATICALLY
 # TODO: CAMBIAR NOMBRE PROYECTO Y TITULO MAIN MENU DE CIPHER TOOLS A PROYECTO CRIPTOGRAFIA UF1
-# TODO: VIGENERE Y CESAR?
+# TODO: VIGENERE Y CESAR (1 y 2)?
+# TODO: Repaso Java y Control de Excepciones
+# TODO: Generador de llaves en archivo personalizado BASE64 / HEX
+# TODO: Usar una llave personalizada
+# TODO: Accion firmar y cifrar todo en uno
+# TODO: Guardar clave publica/privada y seleccionar clave desde archivo. Añadir generador de llaves.
 --- AFTER FINISHING ---
 # TODO: Test charset on windows
 # TODO: Readme explicando las opciones en linux

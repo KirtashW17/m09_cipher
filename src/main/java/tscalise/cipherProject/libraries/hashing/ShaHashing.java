@@ -1,13 +1,12 @@
 package tscalise.cipherProject.libraries.hashing;
 
 import java.io.*;
-import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
-import static tscalise.cipherProject.libraries.Utils.Utilities.getHexString;
+import static tscalise.cipherProject.libraries.utils.Utilities.getHexString;
 
 /**
  *  TODO DOCUMENTATION

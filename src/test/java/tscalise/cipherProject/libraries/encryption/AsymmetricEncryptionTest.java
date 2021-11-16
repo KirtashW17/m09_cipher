@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import tscalise.cipherProject.libraries.hashing.HashAlgorithm;
 import tscalise.cipherProject.libraries.hashing.ShaHashing;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -33,6 +34,21 @@ class AsymmetricEncryptionTest {
 
         assertArrayEquals(a, AsymmetricEncryption.decrypt(b, keyPair.getPrivate()));
         assertEquals(str, new String(AsymmetricEncryption.decrypt(b, keyPair.getPrivate())));
+    }
+
+    @Test
+    void asymmetricEncryptFile() throws GeneralSecurityException, IOException {
+        File input = new File("cryptme");
+        File output = new File("output");
+        File output2 = new File("output2");
+
+        KeyPairGenerator kpGen = KeyPairGenerator.getInstance("RSA");
+
+        kpGen.initialize(1024);
+        KeyPair keyPair = kpGen.generateKeyPair();
+
+        AsymmetricEncryption.cryptFile(input, output, keyPair.getPublic());
+        AsymmetricEncryption.decryptFile(output, output2, keyPair.getPrivate());
     }
 
     @Test

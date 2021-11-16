@@ -10,7 +10,7 @@ import javafx.stage.WindowEvent;
 
 import java.io.File;
 
-import static tscalise.cipherProject.libraries.Utils.Utilities.showFileChooser;
+import static tscalise.cipherProject.libraries.utils.Utilities.showFileChooser;
 
 // TODO VERIFY HASH -> Option generate checksum, supocion sign the checksum
 
@@ -42,45 +42,12 @@ public class AsymmetricEncryptionController extends EncryptionController {
 
     @FXML
     public void switchAction() {
-
+        // TODO
     }
 
-    // TODO CODIGO DUPLICADO (search common field and use inheritance?)
     @FXML
-    public void pressSelectSourceButton() {
-        String title = "Seleccionar archivo de origen";
-        Stage stage = (Stage) TFdestinationFile.getScene().getWindow();
-        File selectedFile = showFileChooser(title, false, stage, null);
-
-        // TODO: Extract method
-        // TODO: IF DESCIFRANDO REMOVER .ENC Y FILTRAR SOLO .ENC
-        if (selectedFile != null) {
-            String filePath = selectedFile.getAbsolutePath();
-            TFsourceFile.setText(filePath);
-            TFdestinationFile.setText(filePath + ".enc");
-        }
-    }
-
-    // TODO CODIGO DUPLICADO
-    @FXML
-    public void pressSelectDestinationButton() {
-        String title = "Seleccionar ruta de destinación";
-        Stage stage = (Stage) TFdestinationFile.getScene().getWindow();
-
-        // TODO: Extract method and put to parent class
-        // TODO: IF DESCIFRANDO NO FILTER Y NO FORZAR A .ENC
-        FileChooser.ExtensionFilter[] extensionFilters =
-                { new FileChooser.ExtensionFilter("ENC files (*.enc)", "*.enc") };
-
-        File selectedFile = showFileChooser(title, true, stage, extensionFilters);
-
-        if (selectedFile != null) {
-            String filePath = selectedFile.getAbsolutePath();
-            if(!selectedFile.getName().contains(".")) {
-                filePath = filePath + ".enc";
-            }
-            TFdestinationFile.setText(filePath);
-        }
+    public void switchKey() {
+        // TODO
     }
 
     @FXML
