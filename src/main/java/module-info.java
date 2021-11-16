@@ -1,6 +1,7 @@
 module tscalise.cipherProject.app {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.desktop;
 
     opens tscalise.cipherProject to javafx.fxml;
     exports tscalise.cipherProject;

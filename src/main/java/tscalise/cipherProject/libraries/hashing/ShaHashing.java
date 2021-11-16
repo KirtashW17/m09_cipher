@@ -7,6 +7,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
+import static tscalise.cipherProject.libraries.Utils.Utilities.getHexString;
+
 /**
  *  TODO DOCUMENTATION
  */
@@ -85,24 +87,6 @@ public class ShaHashing {
 
     public static String calculateHashHex(File file, byte[] seed, HashAlgorithm algorithm) throws NoSuchAlgorithmException, IOException {
         return getHexString(calculateHashBytes(file, seed, algorithm));
-    }
-
-    /**
-     * Tranforma un vector de bytes a una String Hexadecimal
-     * @param hashBytes Vector de bytes de entrada
-     * @return String en formato hexadecimal
-     */
-    private static String getHexString(byte[] hashBytes) {
-        // Bytes a String Hexadecimal
-        BigInteger bi = new BigInteger(1, hashBytes);
-        StringBuilder hashtext = new StringBuilder(bi.toString(16));
-
-        // Si no tiene los caracteres necesarios concatenamos ceros. Cada digito hexadecimal son 4 bits
-        while (hashtext.length() < hashBytes.length * 2) {
-            hashtext.insert(0, "0");
-        }
-
-        return hashtext.toString();
     }
 
     /**

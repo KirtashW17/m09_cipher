@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
 
-public class HashingController {
+public class HashFromStringController {
     @FXML
     private RadioButton RBsha1;
     @FXML
