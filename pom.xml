@@ -61,7 +61,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>tscalise.cipherProject.app/tscalise.cipherProject.Main</mainClass>
+                            <mainClass>tscalise.cryptographyProject.app/tscalise.cryptographyProject.Main</mainClass>
                         </configuration>
                     </execution>
                 </executions>

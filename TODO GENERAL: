@@ -1,19 +1,4 @@
-# TODO: MEJORAR CONTROL EXCEPCIONES (REMOVER noSuchAlgorythm, etc)
-# TODO: DOCUMENTAR INTERIOR CÓDIGO
-# TODO: Más tests
+# TODO: Crete keystores and move keys between them programmatically
+# TODO: Exportador / Importador de llaves
 # TODO: JavaDOC generation warnings (throws, params, etc.)
 # TODO: Check Warnings
-# TODO: KEYSTORE CREATE, EXPORT AND IMPORT PROGRAMMATICALLY
-# TODO: CAMBIAR NOMBRE PROYECTO Y TITULO MAIN MENU DE CIPHER TOOLS A PROYECTO CRIPTOGRAFIA UF1
-# TODO: VIGENERE Y CESAR (1 y 2)?
-# TODO: Repaso Java y Control de Excepciones
-# TODO: Generador de llaves en archivo personalizado BASE64 / HEX
-# TODO: Usar una llave personalizada
-# TODO: Accion firmar y cifrar todo en uno
-# TODO: Guardar clave publica/privada y seleccionar clave desde archivo. Añadir generador de llaves.
---- AFTER FINISHING ---
-# TODO: Test charset on windows
-# TODO: Readme explicando las opciones en linux
-# TODO: Deploy jar and deploy gradle
-# Optional: sh and batch script to generate keystores (keep in mind passphrase in last 2 steps, add a param)
-# Optional: sh script to add jfxrt to modules

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tscalise.cryptographyProject.controllers.SymmetricEncryptionController">
+   <children>
+      <Text layoutX="244.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cifrado Simetrico" />
+      <Separator layoutX="200.0" layoutY="37.0" prefWidth="200.0" />
+      <RadioButton fx:id="RBcifrar" layoutX="100.0" layoutY="55.0" mnemonicParsing="false" onAction="#switchAction" selected="true" text="Cifrar">
+         <toggleGroup>
+            <ToggleGroup fx:id="TGAccion" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="RBdescifrar" layoutX="173.0" layoutY="55.0" mnemonicParsing="false" onAction="#switchAction" text="Descifrar" toggleGroup="$TGAccion" />
+      <Label layoutX="14.0" layoutY="56.0" text="Accion:" />
+      <Label layoutX="14.0" layoutY="206.0" text="Semilla (seed):" />
+      <Label layoutX="14.0" layoutY="94.0" text="Archivo:" />
+      <TextField fx:id="TFsourceFile" layoutX="100.0" layoutY="90.0" prefHeight="24.0" prefWidth="435.0" />
+      <Button layoutX="543.0" layoutY="90.0" mnemonicParsing="false" onAction="#pressSelectSourceButton" text="..." />
+      <Label layoutX="14.0" layoutY="134.0" text="Destinacion:" />
+      <TextField fx:id="TFdestinationFile" layoutX="100.0" layoutY="130.0" prefHeight="24.0" prefWidth="435.0" />
+      <Button layoutX="543.0" layoutY="130.0" mnemonicParsing="false" onAction="#pressSelectDestinationButton" text="..." />
+      <Label layoutX="14.0" layoutY="173.0" text="Clave a usar:" />
+      <CheckBox fx:id="CBuseSeed" layoutX="121.0" layoutY="205.0" mnemonicParsing="false" onAction="#switchUseSeed" text="Usar semilla" />
+      <RadioButton fx:id="RBaSecretKey" layoutX="121.0" layoutY="173.0" mnemonicParsing="false" selected="true" text="a_keystore secretKey">
+         <toggleGroup>
+            <ToggleGroup fx:id="TGkey" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="RBbSecretKey" layoutX="300.0" layoutY="172.0" mnemonicParsing="false" text="b_keystore secretKey" toggleGroup="$TGkey" />
+      <RadioButton fx:id="RBmanualSeed" disable="true" layoutX="121.0" layoutY="250.0" mnemonicParsing="false" onAction="#switchSeedMode" selected="true" text="Manual">
+         <toggleGroup>
+            <ToggleGroup fx:id="TGseedMode" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="RBautoSeed" disable="true" layoutX="121.0" layoutY="282.0" mnemonicParsing="false" onAction="#switchSeedMode" text="Automatica" toggleGroup="$TGseedMode" />
+      <TextField fx:id="TFmanualSeed" disable="true" layoutX="227.0" layoutY="247.0" prefHeight="24.0" prefWidth="307.0">
+         <tooltip>
+            <Tooltip text="Usar solamente string en formato hexadecimal [0-9a-f]" />
+         </tooltip></TextField>
+      <TextField fx:id="TFautoSeed" editable="false" layoutX="227.0" layoutY="279.0" opacity="0.7" prefHeight="24.0" prefWidth="307.0" text="Aqui aparecerá la semilla generada" />
+      <Button fx:id="BtnAction" layoutX="497.0" layoutY="362.0" mnemonicParsing="false" onAction="#pressActionButton" text="Cifrar" />
+      <Button layoutX="77.0" layoutY="362.0" mnemonicParsing="false" onAction="#pressClearButton" text="Vaciar Campos" />
+      <Button layoutX="21.0" layoutY="362.0" mnemonicParsing="false" onAction="#pressExitButton" text="Salir" />
+   </children>
+</AnchorPane>

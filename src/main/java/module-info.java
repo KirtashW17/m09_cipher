@@ -3,8 +3,8 @@ module tscalise.cipherProject.app {
     requires javafx.fxml;
     requires java.desktop;
 
-    opens tscalise.cipherProject to javafx.fxml;
-    exports tscalise.cipherProject;
-    exports tscalise.cipherProject.controllers;
-    opens tscalise.cipherProject.controllers to javafx.fxml;
+    opens tscalise.cryptographyProject to javafx.fxml;
+    exports tscalise.cryptographyProject;
+    exports tscalise.cryptographyProject.controllers;
+    opens tscalise.cryptographyProject.controllers to javafx.fxml;
 }
