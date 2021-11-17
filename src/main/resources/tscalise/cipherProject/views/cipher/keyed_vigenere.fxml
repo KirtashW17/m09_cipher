@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tscalise.cipherProject.controllers.KeyedVigenereController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tscalise.cipherProject.controllers.KeyedVigenereController">
    <children>
       <HBox prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -40,11 +47,6 @@
                            <children>
                               <TextArea fx:id="TAinput" layoutX="8.0" layoutY="37.0" prefHeight="149.0" prefWidth="276.0" />
                               <Text layoutX="130.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Entrada" />
-                              <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="258.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../assets/images/clipboard.png" />
-                                 </image>
-                              </ImageView>
                            </children>
                         </AnchorPane>
                         <Separator prefWidth="200.0">
@@ -56,11 +58,6 @@
                            <children>
                               <TextArea fx:id="TAoutput" editable="false" layoutX="9.0" layoutY="33.0" prefHeight="149.0" prefWidth="276.0" />
                               <Text layoutX="131.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Salida" />
-                              <ImageView fitHeight="25.0" fitWidth="23.0" layoutX="262.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true">
-                                 <image>
-                                    <Image url="@../../assets/images/clipboard.png" />
-                                 </image>
-                              </ImageView>
                            </children>
                         </AnchorPane>
                      </children>

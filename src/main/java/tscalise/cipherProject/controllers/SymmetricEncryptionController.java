@@ -1,14 +1,15 @@
 package tscalise.cipherProject.controllers;
 
+import tscalise.cipherProject.libraries.encryption.SymmetricEncryption;
+import tscalise.cipherProject.libraries.utils.Utilities;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import tscalise.cipherProject.libraries.encryption.SymmetricEncryption;
-import tscalise.cipherProject.libraries.utils.Utilities;
-
 import javax.crypto.BadPaddingException;
 import javax.crypto.SecretKey;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,17 +17,8 @@ import java.security.GeneralSecurityException;
 
 
 public class SymmetricEncryptionController extends EncryptionController {
-
-    @FXML
-    private RadioButton RBcifrar;
     @FXML
     private ToggleGroup TGAccion;
-    @FXML
-    private RadioButton RBdescifrar;
-    @FXML
-    private TextField TFsourceFile;
-    @FXML
-    private TextField TFdestinationFile;
     @FXML
     private CheckBox CBuseSeed;
     @FXML
@@ -110,6 +102,7 @@ public class SymmetricEncryptionController extends EncryptionController {
     }
 
     private void doAction() {
+        // TODO IMPORTANTE: Mostrar seed aleatorio generado al cifrar si está habilitado en modo aleatorio
         String keystore = RBaSecretKey.isSelected() ? "a_keystore.jks" : "b_keystore.jks";
         SecretKey secretKey = getSecretKey(keystore);
 

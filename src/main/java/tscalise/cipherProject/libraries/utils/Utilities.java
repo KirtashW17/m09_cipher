@@ -1,18 +1,39 @@
 package tscalise.cipherProject.libraries.utils;
 
 import javafx.scene.control.Alert;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigInteger;
 import java.security.interfaces.RSAKey;
 import java.util.Base64;
 
 public class Utilities {
 
+    /**
+     * Copia una String al portapapeles
+     * @param string String que se copiará al portapapeles
+     */
+    public static void copyToClipboard(String string) {
+        ClipboardContent content = new ClipboardContent();
+        content.putString(string);
+        Clipboard.getSystemClipboard().setContent(content);
+    }
+
+    /**
+     * Muestra un diálogo de JavaFX
+     * @param type Tipo de diálogo [WARNING | INFORMATION | ERROR | CONFIRMATION]
+     * @param message Mensaje que se mostrará en el diálogo
+     */
     public static void showAlertDialog(String type, String message) {
         Alert alert = new Alert(Alert.AlertType.valueOf(type), message);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
         alert.showAndWait();
     }
 
@@ -96,10 +117,36 @@ public class Utilities {
         return keySize;
     }
 
+    /**
+     * Copia un archivo usando JavaIO
+     * @param archivoOrigen Ruta de Origen del archivo
+     * @param archivoDestino Ruta de Destinación del archivo
+     */
+    public static void copiarArchivoIO(File archivoOrigen, File archivoDestino) throws IOException {
+        int f;
+        FileReader in = new FileReader(archivoOrigen);
+        FileWriter out = new FileWriter(archivoDestino);
+        while ((f = in.read()) != -1){
+            out.write(f);
+        }
+        in.close();
+        out.close();
+    }
+
+    /**
+     * Transforma un vector de bytes a una String codificada en Base64
+     * @param bytes Vector de bytes de entrtada
+     * @return String codificada en Base64
+     */
     public String bytesToBase64(byte[] bytes) {
         return Base64.getEncoder().encodeToString(bytes);
     }
 
+    /**
+     * Transforma una String codificada en Base64 en un vector de bytes
+     * @param b64String String codificada en Base64
+     * @return Vector de bytes representado por la String de entrada.
+     */
     public byte[] Base64StringToBytes(String b64String) {
         return Base64.getDecoder().decode(b64String);
     }

@@ -5,8 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
-
-import static tscalise.cipherProject.libraries.utils.Utilities.getHexString;
+import tscalise.cipherProject.libraries.utils.Utilities;
 
 /**
  *  TODO DOCUMENTATION
@@ -14,11 +13,6 @@ import static tscalise.cipherProject.libraries.utils.Utilities.getHexString;
 public class ShaHashing {
     // TODO: Documentar
     // TODO: Aplicacion practica
-    // TODO: Return bytes array
-    // TODO: Get hash from file (use update method)
-
-    // Nota: Se podria devolver el Hash en un vector de Bytes, pero nos es más util obtenerlo directamente en una
-    //  String en nuestro caso de uso.
 
     /**
      * Calcula el "resumen" de una entrada dada la entrada, la semilla (opcional) y el algoritmo a usar.
@@ -41,7 +35,7 @@ public class ShaHashing {
      * @return Función resumen en formato String Hexadecimal
      */
     public static String calculateHashHex(byte[] input, byte[] seed, HashAlgorithm algorithm) throws NoSuchAlgorithmException {
-        return getHexString(calculateHashBytes(input, seed, algorithm));
+        return Utilities.getHexString(calculateHashBytes(input, seed, algorithm));
     }
 
     /**
@@ -85,7 +79,7 @@ public class ShaHashing {
     }
 
     public static String calculateHashHex(File file, byte[] seed, HashAlgorithm algorithm) throws NoSuchAlgorithmException, IOException {
-        return getHexString(calculateHashBytes(file, seed, algorithm));
+        return Utilities.getHexString(calculateHashBytes(file, seed, algorithm));
     }
 
     /**

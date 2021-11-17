@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tscalise.cipherProject.controllers.HashFromStringController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tscalise.cipherProject.controllers.HashFromFileController">
    <children>
       <VBox prefHeight="400.0" prefWidth="600.0">
          <children>
@@ -40,7 +40,7 @@
                   <Button layoutX="14.0" layoutY="223.0" mnemonicParsing="false" onAction="#pressExitButton" text="Salir" />
                   <Button layoutX="70.0" layoutY="223.0" mnemonicParsing="false" onAction="#pressClearButton" prefHeight="24.0" prefWidth="116.0" text="Vaciar Campos" />
                   <Label layoutX="14.0" layoutY="95.0" prefHeight="3.0" prefWidth="73.0" text="Archivo:" />
-                  <TextField fx:id="TFinput" layoutX="101.0" layoutY="91.0" prefHeight="24.0" prefWidth="447.0" />
+                  <TextField fx:id="TFinputFile" layoutX="101.0" layoutY="91.0" prefHeight="24.0" prefWidth="447.0" />
                   <Button layoutX="553.0" layoutY="91.0" mnemonicParsing="false" onAction="#pressSelectSourceButton" text="..." />
                </children>
             </AnchorPane>

@@ -6,7 +6,9 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import tscalise.cipherProject.libraries.hashing.HashAlgorithm;
 import tscalise.cipherProject.libraries.hashing.ShaHashing;
+import tscalise.cipherProject.libraries.utils.Utilities;
 
+import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.util.Random;
@@ -39,7 +41,7 @@ public class HashFromStringController {
     // TODO: Mostrar seed aleatorio
 
     @FXML
-    public void exit() {
+    public void pressExitButton() {
         Stage stage = (Stage) RBsha1.getScene().getWindow() ;
         stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
@@ -91,7 +93,7 @@ public class HashFromStringController {
     @FXML
     public void pressClearButton() {
         TFseed.clear();
-        TAoutput.clear();
+        TAinput.clear();
         TAoutput.clear();
         RBsha1.setSelected(true);
         RBmanual.setSelected(false);

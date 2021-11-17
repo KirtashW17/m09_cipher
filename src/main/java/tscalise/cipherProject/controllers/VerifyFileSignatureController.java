@@ -53,4 +53,6 @@ public class VerifyFileSignatureController {
         stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
+
+
 }

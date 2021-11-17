@@ -6,11 +6,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+
 import tscalise.cipherProject.libraries.utils.Utilities;
 
 import java.io.File;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
 
 
 public class EncryptionController {
@@ -21,12 +20,21 @@ public class EncryptionController {
     TextField TFdestinationFile;
     @FXML
     RadioButton RBcifrar;
+    @FXML
+    RadioButton RBdescifrar;
 
     @FXML
     public void pressSelectSourceButton() {
         String title = "Seleccionar archivo de origen";
         Stage stage = (Stage) TFdestinationFile.getScene().getWindow();
-        File selectedFile = Utilities.showFileChooser(title, false, stage, null);
+        FileChooser.ExtensionFilter[] extensionFilters = null;
+
+        if (RBdescifrar.isSelected()) {
+            extensionFilters = new FileChooser.ExtensionFilter[]
+                    {new FileChooser.ExtensionFilter("ENC files (*.enc)", "*.enc")};
+        }
+
+        File selectedFile = Utilities.showFileChooser(title, false, stage, extensionFilters);
 
         if (selectedFile != null) {
             String filePath = selectedFile.getAbsolutePath();
@@ -58,7 +66,8 @@ public class EncryptionController {
 
         if (selectedFile != null) {
             String filePath = selectedFile.getAbsolutePath();
-            if(RBcifrar.isSelected() && !selectedFile.getName().contains(".")) {
+            String fileName = selectedFile.getName();
+            if(RBcifrar.isSelected() && fileName.endsWith(".enc")) {
                 filePath = filePath + ".enc";
             }
             TFdestinationFile.setText(filePath);

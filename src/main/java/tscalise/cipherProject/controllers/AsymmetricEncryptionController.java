@@ -8,9 +8,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import tscalise.cipherProject.libraries.encryption.AsymmetricEncryption;
-import tscalise.cipherProject.libraries.encryption.SymmetricEncryption;
 import tscalise.cipherProject.libraries.utils.Utilities;
-
 import javax.crypto.BadPaddingException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -22,15 +20,7 @@ import java.security.*;
 
 public class AsymmetricEncryptionController extends EncryptionController {
     @FXML
-    private RadioButton RBcifrar;
-    @FXML
     private ToggleGroup TGaccion;
-    @FXML
-    private RadioButton RBdescifrar;
-    @FXML
-    private TextField TFsourceFile;
-    @FXML
-    private TextField TFdestinationFile;
     @FXML
     private RadioButton RBaKeystoreaPrivate;
     @FXML
@@ -85,6 +75,7 @@ public class AsymmetricEncryptionController extends EncryptionController {
     }
 
     private void doAction() {
+        Key key = null;
         String keystore = null, alias = null;
         boolean isPrivateKey = false;
 
@@ -109,7 +100,17 @@ public class AsymmetricEncryptionController extends EncryptionController {
                 break;
         }
 
-        Key key = getRSAKey(keystore, "123456", alias, isPrivateKey);
+        try {
+            key = AsymmetricEncryption.getRSAKey(keystore, "123456", alias, isPrivateKey);
+        } catch (IOException | GeneralSecurityException e) {
+            Utilities.showAlertDialog("ERROR", "No se ha encontrado el almacén de llaves o este ha sido manipulado.");
+            e.printStackTrace();
+            // IOException se produce por ejemplo en caso de que la contraseña sea incorrecta o se produzca un error
+            //  al leer el almacén de llaves, las excepciones hijas de GeneralSecurityException se producen varios caso,
+            //  sin embargo con los keystores que hemos generado no pasará y no hace falta mostrar un diálogo diferente
+            //  por cada cosa ya que no depende de las acciones del usuario, la contraseña, el alias y el keystores
+            //  están definidos en el código, no en la entrada del usuario
+        }
 
         if (key != null) {
             File sourceFile = new File(TFsourceFile.getText());
@@ -143,34 +144,6 @@ public class AsymmetricEncryptionController extends EncryptionController {
 
         }
 
-    }
-
-    private Key getRSAKey(String keystorePath, String keystoreType, String password, String alias, boolean isPrivateKey) {
-        Key key = null;
-
-        try {
-            KeyStore keyStore = KeyStore.getInstance(keystoreType);
-            keyStore.load(new FileInputStream(keystorePath), password.toCharArray());
-
-            if (isPrivateKey)
-                key = keyStore.getKey(alias, password.toCharArray());
-            else
-                key = keyStore.getCertificate(alias).getPublicKey();
-        } catch (GeneralSecurityException | IOException e) {
-            Utilities.showAlertDialog("ERROR", "No se ha encontrado el almacén de llaves o este ha sido manipulado.");
-            e.printStackTrace();
-            // IOException se produce por ejemplo en caso de que la contraseña sea incorrecta o se produzca un error
-            //  al leer el almacén de llaves, las excepciones hijas de GeneralSecurityException se producen varios caso,
-            //  sin embargo con los keystores que hemos generado no pasará y no hace falta mostrar un diálogo diferente
-            //  por cada cosa ya que no depende de las acciones del usuario, la contraseña, el alias y el keystores
-            //  están definidos en el código, no en la entrada del usuario
-        }
-
-        return key;
-    }
-
-    private Key getRSAKey(String keystorePath, String password, String alias, boolean isPrivateKey) {
-        return getRSAKey(keystorePath, "JKS", password, alias, isPrivateKey);
     }
 
     private boolean validateForm() {

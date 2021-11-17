@@ -14,17 +14,12 @@ import java.util.Arrays;
  * @version 1.0 (14/11/2021)
  */
 public class SymmetricEncryption {
-
-    //  A l’hora d’implementar un exemple d’encriptació simètrica en Java, no tot és tan senzill com fer les crides
-    //  corresponents a l’API JCA/JCE de Java. Aquí teniu el repte de crear un exemple d’encriptació simètrica utilitzant
-    //  Java JCE/JCA que utilitzi un “seed” aleatori addicional al contingut que voleu encriptar.
-    //  Això es fa per tal que el resultat de l’encriptació no segueixi el mateix patró i per tant es pugui arribar a desencriptar.
-
-    // TODO CIFRAR/DESCIFRAR ARCHIVOS
-    // TODO: Ojo: CBC != ECB. Documentar
-
     /**
-     *  TODO DOCUMENTATION
+     * TODO DOCUMENTAR
+     * @param input
+     * @param key
+     * @return
+     * @throws GeneralSecurityException
      */
     public static byte[] encrypt(byte[] input, SecretKey key) throws GeneralSecurityException {
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
@@ -34,7 +29,13 @@ public class SymmetricEncryption {
     }
 
     /**
-     *  TODO DOCUMENTATION
+     * TODO DOCUMENTAR
+     * Usamos CBC para cifrar con seed ya que ECB no nos permite insertar un IvParameterSpec
+     * @param input
+     * @param key
+     * @param seed
+     * @return
+     * @throws GeneralSecurityException
      */
     public static byte[] encryptWithSeed(byte[] input, SecretKey key, IvParameterSpec seed) throws GeneralSecurityException {
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
@@ -43,7 +44,13 @@ public class SymmetricEncryption {
     }
 
     /**
-     *  TODO DOCUMENTATION
+     * TODO DOCUMENTAR
+     * Usamos CBC para cifrar con seed ya que ECB no nos permite insertar un IvParameterSpec
+     * @param input
+     * @param key
+     * @param seed
+     * @return
+     * @throws GeneralSecurityException
      */
     public static byte[] decryptWithSeed(byte[] input, SecretKey key, IvParameterSpec seed) throws GeneralSecurityException {
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
@@ -52,7 +59,11 @@ public class SymmetricEncryption {
     }
 
     /**
-     *  TODO DOCUMENTATION
+     * TODO DOCUMENTAR
+     * @param input
+     * @param key
+     * @return
+     * @throws GeneralSecurityException
      */
     public static byte[] decrypt(byte[] input, SecretKey key) throws GeneralSecurityException {
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
@@ -61,12 +72,17 @@ public class SymmetricEncryption {
         return cipher.doFinal(input);
     }
 
-    // TODO CONTROL DE EXCEPCIONES
-    // todo return boolean
-    // TODO normalize name (encryptFile)
-    public static void encryptFile(File fileSource, File destinationFile, SecretKey secretKey) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+    /**
+     * TODO DOCUMENTAR
+     * @param sourceFile
+     * @param destinationFile
+     * @param secretKey
+     * @throws IOException
+     * @throws GeneralSecurityException
+     */
+    public static void encryptFile(File sourceFile, File destinationFile, SecretKey secretKey) throws IOException, GeneralSecurityException {
         int buffSize = 8192;
-        BufferedInputStream in = new BufferedInputStream(new FileInputStream(fileSource));
+        BufferedInputStream in = new BufferedInputStream(new FileInputStream(sourceFile));
         BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(destinationFile));
         byte[] buff = new byte[buffSize];
 
@@ -84,9 +100,17 @@ public class SymmetricEncryption {
         out.close();
     }
 
-    public static void decryptFile(File fileSource, File destinationFile, SecretKey secretKey) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+    /**
+     *
+     * @param sourceFile
+     * @param destinationFile
+     * @param secretKey
+     * @throws IOException
+     * @throws GeneralSecurityException
+     */
+    public static void decryptFile(File sourceFile, File destinationFile, SecretKey secretKey) throws IOException, GeneralSecurityException {
         int buffSize = 8192;
-        BufferedInputStream in = new BufferedInputStream(new FileInputStream(fileSource));
+        BufferedInputStream in = new BufferedInputStream(new FileInputStream(sourceFile));
         BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(destinationFile));
         byte[] buff = new byte[buffSize];
 
@@ -104,8 +128,18 @@ public class SymmetricEncryption {
         out.close();
     }
 
+    /**
+     * TODO DOCUMENTAR
+     * @param keystorePath
+     * @param keystoreType
+     * @param password
+     * @param alias
+     * @return
+     * @throws IOException
+     * @throws GeneralSecurityException
+     */
     public static SecretKey getSecretKeyFromKeystore(String keystorePath, String keystoreType, String password, String alias)
-            throws KeyStoreException, IOException, UnrecoverableKeyException, NoSuchAlgorithmException, CertificateException {
+            throws IOException, GeneralSecurityException {
 
         char[] passwordChars = password.toCharArray();
         KeyStore keyStore = KeyStore.getInstance(keystoreType);
@@ -114,8 +148,17 @@ public class SymmetricEncryption {
         return (SecretKey) keyStore.getKey(alias, passwordChars);
     }
 
+    /**
+     * TODO DOCUMENTAR
+     * @param keystorePath
+     * @param password
+     * @param alias
+     * @return
+     * @throws IOException
+     * @throws GeneralSecurityException
+     * */
     public static SecretKey getSecretKeyFromKeystore(String keystorePath, String password, String alias)
-            throws KeyStoreException, IOException, UnrecoverableKeyException, NoSuchAlgorithmException, CertificateException {
+            throws IOException, GeneralSecurityException {
 
         return getSecretKeyFromKeystore(keystorePath, "JKS", password, alias);
     }

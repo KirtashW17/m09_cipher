@@ -23,8 +23,13 @@ public class MainMenuController {
     }
 
     @FXML
-    public void showHashingView() {
+    public void showHashingFromStringView() {
         changeScene("views/hashing/hash_from_string.fxml", "Calcular Función Resumen");
+    }
+
+    @FXML
+    public void showHashingFromFileView() {
+        changeScene("views/hashing/hash_from_file.fxml", "Calcular Función Resumen");
     }
 
     @FXML

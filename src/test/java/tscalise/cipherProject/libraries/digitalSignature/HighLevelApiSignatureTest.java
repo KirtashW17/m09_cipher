@@ -2,15 +2,16 @@ package tscalise.cipherProject.libraries.digitalSignature;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.Signature;
+import java.security.interfaces.RSAKey;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class HighLevelApiSignatureTest {
-
-    // TODO MORE TESTS
 
     /**
      * Este test comprueba que el resultado de la firma es el mismo al hacer un único update con todos los bytes,
@@ -42,26 +43,36 @@ class HighLevelApiSignatureTest {
         assertArrayEquals(s1, s2);
     }
 
-    //    @Test
-//    void verifySignature() throws  GeneralSecurityException{
-//        String str = "1";
-//        byte[] a, b;
-//
-//        KeyPairGenerator kpGen = KeyPairGenerator.getInstance("RSA");
-//        kpGen.initialize(1024);
-//        KeyPair keyPairA = kpGen.generateKeyPair();
-//        KeyPair keyPairB = kpGen.generateKeyPair();
-//
-//        a = str.getBytes(StandardCharsets.UTF_8);
-//
-////        IvParameterSpec seed = generateSeed();
-//
-//        b = AsymmetricEncryption.cryptAndSign(a, keyPairB.getPublic(), keyPairA.getPrivate(), null);
-//        byte[] decryptedBytes = AsymmetricEncryption.decrypt(b, keyPairB.getPrivate());
-//        byte[] messageBytes = AsymmetricEncryption.trimSignature(decryptedBytes);
-//        byte[] signatureBytes = AsymmetricEncryption.getSignature(decryptedBytes);
-//        assertTrue(AsymmetricEncryption.verifySignature(messageBytes, signatureBytes, keyPairA.getPublic()));
-////        assertArrayEquals(a, AsymmetricEncryption.decrypt(b, keyPair.getPrivate()));
-////        assertEquals(str, new String(AsymmetricEncryption.decrypt(b, keyPair.getPrivate())));
-//    }
+    @Test
+    void verifySignature() throws  GeneralSecurityException{
+        String str = "test";
+        byte[] input, inputSigned, signatureBytes, messageBytes;
+
+        KeyPairGenerator kpGen = KeyPairGenerator.getInstance("RSA");
+        kpGen.initialize(1024);
+        KeyPair keyPair = kpGen.generateKeyPair();
+
+        input = str.getBytes(StandardCharsets.UTF_8);
+        inputSigned = HighLevelApiSignature.signBytes(input, keyPair.getPrivate());
+        signatureBytes = HighLevelApiSignature.getSignatureBytes(inputSigned, (RSAKey) keyPair.getPublic());
+        messageBytes = HighLevelApiSignature.trimSignatureBytes(inputSigned, (RSAKey) keyPair.getPublic());
+
+        assertTrue(HighLevelApiSignature.verifyBytesSignature(messageBytes, signatureBytes, keyPair.getPublic()));
+        assertTrue(HighLevelApiSignature.verifyBytesSignature(inputSigned, keyPair.getPublic()));
+    }
+
+    @Test
+    void verifyFileSignature() throws IOException, GeneralSecurityException {
+        File inputFile = new File("signme");
+        File outputFile = new File("signme.sign");
+        File outputFile2 = new File("signme_unsigned");
+
+        KeyPairGenerator kpGen = KeyPairGenerator.getInstance("RSA");
+        kpGen.initialize(1024);
+        KeyPair keyPair = kpGen.generateKeyPair();
+
+        HighLevelApiSignature.signFile(inputFile, outputFile, keyPair.getPrivate());
+        assertTrue(HighLevelApiSignature.verifyFileSignature(outputFile, keyPair.getPublic()));
+        assertTrue(HighLevelApiSignature.verifyFileSignatureAndTrim(outputFile, outputFile2, keyPair.getPublic()));
+    }
 }

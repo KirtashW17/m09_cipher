@@ -1,5 +1,7 @@
 package tscalise.cipherProject.libraries.encryption;
 
+import tscalise.cipherProject.libraries.utils.Utilities;
+
 import javax.crypto.*;
 import java.io.*;
 import java.nio.ByteBuffer;
@@ -16,13 +18,6 @@ import static tscalise.cipherProject.libraries.utils.Utilities.getKeySize;
  * @version 1.0 (14/11/2021)
  */
 public class AsymmetricEncryption {
-    // Heu de calcular la funció resum d’un document original sense encriptar i despès l’heu d’encriptar amb la vostra
-    // clau privada. Un cop fet això, envieu els dos continguts al destinatari que haurà de comprovar la validesa de tot
-    // plegat desencriptant primer (amb la vostra clau pública) i calculant la funció resum (hash) del contingut desencriptat.
-    // Si el valor resum calculat és el mateix que el valor resum (hash) rebut, el contingut és correcte.
-
-    // TODO CIFRAR/DESCIFRAR ARCHIVOS
-
     /**
      * Cifra un mensaje mediante encriptación asimétrica RSA.
      * Requiere bastante RAM para mensajes grandes, en esos casos es recomendable cifrar un archivo, ya que se hará
@@ -50,8 +45,6 @@ public class AsymmetricEncryption {
         //  hacia abajo el resultado de input.length / (keySize - 11), y lo múltiplicamos por keySize
         //  (cada keySize - 11 bytes de entrada, keySize de salida, función escalonada)
         //  0 - 245 -> 256 | 245 - 490 -> 512 | 591 - 735 -> 768 ...
-        // TODO ARREGLAR ESTE COMENTARIO
-        // TODO DOCUMENTAR EL MOTIVO POR EL CUAL ELEGIMOS KEYS DE 256 (128 están deprecadas)
 
         int outputLength = (input.length + inputBufferSize - 1) / inputBufferSize * keySize;
 
@@ -67,6 +60,8 @@ public class AsymmetricEncryption {
         // Inicializamos el cipher en modo cifrado con nuestra respectiva clave y semilla.
         cipher.init(Cipher.ENCRYPT_MODE, key);
 
+        // En un bucle, vamos cifrando los archivos en bloques del tamaño calculado hasta llegar al final del archivo
+        //  de origen.
         while (inputPointer < input.length) {
             int length = input.length - inputPointer;
             if (length >= inputBufferSize) {
@@ -79,6 +74,7 @@ public class AsymmetricEncryption {
                     outputPointer++;
                 }
             } else {
+                // Última iteración
                 byteBuffer.put(input, inputPointer, length);
                 inputPointer += length;
                 byte[] byteBufferArray = new byte[length];
@@ -142,11 +138,17 @@ public class AsymmetricEncryption {
         return decryptedBytes;
     }
 
-    // TODO CONTROL DE EXCEPCIONES
-    // todo return boolean
-    public static void encryptFile(File fileSource, File fileDestination, Key key) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+    /**
+     * TODO DOCUMENTAR
+     * @param sourceFile
+     * @param fileDestination
+     * @param key
+     * @throws IOException
+     * @throws GeneralSecurityException
+     */
+    public static void encryptFile(File sourceFile, File fileDestination, Key key) throws IOException, GeneralSecurityException {
         int buffSize = getKeySize((RSAKey) key) / 8 - 11;
-        BufferedInputStream in = new BufferedInputStream(new FileInputStream(fileSource));
+        BufferedInputStream in = new BufferedInputStream(new FileInputStream(sourceFile));
         BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(fileDestination));
         byte[] buff = new byte[buffSize];
 
@@ -164,9 +166,17 @@ public class AsymmetricEncryption {
         out.close();
     }
 
-    public static void decryptFile(File fileSource, File fileDestination, Key key) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+    /**
+     * TODO DOCUMENTAR
+     * @param sourceFile
+     * @param fileDestination
+     * @param key
+     * @throws IOException
+     * @throws GeneralSecurityException
+     */
+    public static void decryptFile(File sourceFile, File fileDestination, Key key) throws IOException, GeneralSecurityException {
         int buffSize = getKeySize((RSAKey) key) / 8;
-        BufferedInputStream in = new BufferedInputStream(new FileInputStream(fileSource));
+        BufferedInputStream in = new BufferedInputStream(new FileInputStream(sourceFile));
         BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(fileDestination));
         byte[] buff = new byte[buffSize];
 
@@ -182,4 +192,45 @@ public class AsymmetricEncryption {
         in.close();
         out.flush();
         out.close();
-    }}
+    }
+
+    /**
+     * TODO DOCUMENTAR
+     * @param keystorePath
+     * @param keystoreType
+     * @param password
+     * @param alias
+     * @param isPrivateKey
+     * @return
+     * @throws IOException
+     * @throws GeneralSecurityException
+     */
+    public static Key getRSAKey(String keystorePath, String keystoreType, String password, String alias, boolean isPrivateKey) throws IOException, GeneralSecurityException {
+        Key key = null;
+
+        KeyStore keyStore = KeyStore.getInstance(keystoreType);
+        keyStore.load(new FileInputStream(keystorePath), password.toCharArray());
+
+        if (isPrivateKey)
+            key = keyStore.getKey(alias, password.toCharArray());
+        else
+            key = keyStore.getCertificate(alias).getPublicKey();
+
+        return key;
+    }
+
+    /**
+     * TODO DOCUMENTAR
+     * @param keystorePath
+     * @param password
+     * @param alias
+     * @param isPrivateKey
+     * @return
+     * @throws GeneralSecurityException
+     * @throws IOException
+     */
+    public static Key getRSAKey(String keystorePath, String password, String alias, boolean isPrivateKey) throws GeneralSecurityException, IOException {
+        return getRSAKey(keystorePath, "JKS", password, alias, isPrivateKey);
+    }
+
+}
