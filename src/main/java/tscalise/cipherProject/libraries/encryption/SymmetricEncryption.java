@@ -4,6 +4,7 @@ import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
 import java.io.*;
 import java.security.*;
+import java.security.cert.CertificateException;
 import java.util.Arrays;
 
 /**
@@ -63,10 +64,10 @@ public class SymmetricEncryption {
     // TODO CONTROL DE EXCEPCIONES
     // todo return boolean
     // TODO normalize name (encryptFile)
-    public static void cryptFile(File fileSource, File fileDestination, SecretKey secretKey) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+    public static void encryptFile(File fileSource, File destinationFile, SecretKey secretKey) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
         int buffSize = 8192;
         BufferedInputStream in = new BufferedInputStream(new FileInputStream(fileSource));
-        BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(fileDestination));
+        BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(destinationFile));
         byte[] buff = new byte[buffSize];
 
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
@@ -83,10 +84,10 @@ public class SymmetricEncryption {
         out.close();
     }
 
-    public static void decryptFile(File fileSource, File fileDestination, SecretKey secretKey) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+    public static void decryptFile(File fileSource, File destinationFile, SecretKey secretKey) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
         int buffSize = 8192;
         BufferedInputStream in = new BufferedInputStream(new FileInputStream(fileSource));
-        BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(fileDestination));
+        BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(destinationFile));
         byte[] buff = new byte[buffSize];
 
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
@@ -102,4 +103,21 @@ public class SymmetricEncryption {
         out.flush();
         out.close();
     }
-}
+
+    public static SecretKey getSecretKeyFromKeystore(String keystorePath, String keystoreType, String password, String alias)
+            throws KeyStoreException, IOException, UnrecoverableKeyException, NoSuchAlgorithmException, CertificateException {
+
+        char[] passwordChars = password.toCharArray();
+        KeyStore keyStore = KeyStore.getInstance(keystoreType);
+        keyStore.load(new FileInputStream(keystorePath), passwordChars);
+
+        return (SecretKey) keyStore.getKey(alias, passwordChars);
+    }
+
+    public static SecretKey getSecretKeyFromKeystore(String keystorePath, String password, String alias)
+            throws KeyStoreException, IOException, UnrecoverableKeyException, NoSuchAlgorithmException, CertificateException {
+
+        return getSecretKeyFromKeystore(keystorePath, "JKS", password, alias);
+    }
+
+    }

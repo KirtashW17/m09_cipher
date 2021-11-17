@@ -39,7 +39,7 @@
       <RadioButton fx:id="RBbKeystore_bPrivate" layoutX="382.0" layoutY="222.0" mnemonicParsing="false" onAction="#switchKey" text="b_private" toggleGroup="$TGkey" />
       <RadioButton fx:id="RBbKeystore_bPublic" disable="true" layoutX="290.0" layoutY="222.0" mnemonicParsing="false" onAction="#switchKey" text="b_public" toggleGroup="$TGkey" />
       <RadioButton fx:id="RBbKeystore_aPublic" layoutX="192.0" layoutY="222.0" mnemonicParsing="false" onAction="#switchKey" text="a_public" toggleGroup="$TGkey" />
-      <Button layoutX="490.0" layoutY="362.0" mnemonicParsing="false" onAction="#pressActionButton" text="Cifrar" />
+      <Button fx:id="BtnAction" layoutX="490.0" layoutY="362.0" mnemonicParsing="false" onAction="#pressActionButton" text="Cifrar" />
       <Button layoutX="28.0" layoutY="362.0" mnemonicParsing="false" onAction="#pressExitButton" text="Salir" />
       <Button layoutX="86.0" layoutY="362.0" mnemonicParsing="false" onAction="#pressClearButton" text="Vaciar Campos" />
       <Label layoutX="255.0" layoutY="260.0" text="Publica" />

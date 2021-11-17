@@ -1,5 +1,6 @@
 package tscalise.cipherProject.libraries.utils;
 
+import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -9,7 +10,12 @@ import java.security.interfaces.RSAKey;
 import java.util.Base64;
 
 public class Utilities {
-    
+
+    public static void showAlertDialog(String type, String message) {
+        Alert alert = new Alert(Alert.AlertType.valueOf(type), message);
+        alert.showAndWait();
+    }
+
     public static File showFileChooser(String title, boolean save, Stage stage, FileChooser.ExtensionFilter[] extensionFilters) {
         File selectedFile;
         FileChooser fileChooser = new FileChooser();

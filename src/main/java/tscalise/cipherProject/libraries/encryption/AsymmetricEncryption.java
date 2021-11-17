@@ -59,7 +59,7 @@ public class AsymmetricEncryption {
         byte[] encryptedBytes = new byte[outputLength];
 
         // Creamos un ByteBuffer de 117 bytes para ir leyendo los bytes del vector de 117 en 117
-        ByteBuffer bb = ByteBuffer.allocate(inputBufferSize);
+        ByteBuffer byteBuffer = ByteBuffer.allocate(inputBufferSize);
 
         // Obtenemos nuestra instancia de Cipher usando el algoritmo RSA
         Cipher cipher = Cipher.getInstance("RSA");
@@ -70,22 +70,22 @@ public class AsymmetricEncryption {
         while (inputPointer < input.length) {
             int length = input.length - inputPointer;
             if (length >= inputBufferSize) {
-                bb.put(input, inputPointer, inputBufferSize);
+                byteBuffer.put(input, inputPointer, inputBufferSize);
                 inputPointer += inputBufferSize;
-                byte[] cryptedByteBuffer = cipher.doFinal(bb.array());
-                bb.clear();
-                for (byte b : cryptedByteBuffer) {
+                byte[] encryptedByteBuffer = cipher.doFinal(byteBuffer.array());
+                byteBuffer.clear();
+                for (byte b : encryptedByteBuffer) {
                     encryptedBytes[outputPointer] = b;
                     outputPointer++;
                 }
             } else {
-                bb.put(input, inputPointer, length);
+                byteBuffer.put(input, inputPointer, length);
                 inputPointer += length;
                 byte[] byteBufferArray = new byte[length];
                 for (int i = 0; i < length; i++) {
-                    byteBufferArray[i] = bb.get(i);
+                    byteBufferArray[i] = byteBuffer.get(i);
                 }
-                bb.clear();
+                byteBuffer.clear();
                 byteBufferArray = cipher.doFinal(byteBufferArray);
                 for (byte b: byteBufferArray) {
                     encryptedBytes[outputPointer] = b;

@@ -20,7 +20,7 @@ class KeyedVigenereTest {
     }
 
     @Test
-    void cryptMessage() {
+    void encryptMessage() {
         assertEquals("Ma porrbsu ofsratdyp yjve Irytr Xhoiwujy",
                 keyedVigenere.cryptMessage("My message encrypted with Keyed Vigenere"));
     }

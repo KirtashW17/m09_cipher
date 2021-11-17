@@ -54,15 +54,15 @@ class AsymmetricEncryptionTest {
     @Test
     void asymmetricEncryptionCompareHash() throws GeneralSecurityException {
         String ahash, bhash, message = "test";
-        byte[] original, crypted, decrypted;
+        byte[] original, encrypted, decrypted;
 
         KeyPairGenerator kpGen = KeyPairGenerator.getInstance("RSA");
         kpGen.initialize(1024);
         KeyPair keyPair = kpGen.generateKeyPair();
 
         original = message.getBytes(StandardCharsets.UTF_8);
-        crypted = AsymmetricEncryption.encrypt(original, keyPair.getPublic());
-        decrypted = AsymmetricEncryption.decrypt(crypted, keyPair.getPrivate());
+        encrypted = AsymmetricEncryption.encrypt(original, keyPair.getPublic());
+        decrypted = AsymmetricEncryption.decrypt(encrypted, keyPair.getPrivate());
 
         ahash = ShaHashing.calculateHashHex(original, null, HashAlgorithm.SHA256);
         bhash = ShaHashing.calculateHashHex(decrypted, null, HashAlgorithm.SHA256);

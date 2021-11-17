@@ -1,6 +1,7 @@
 package tscalise.cipherProject.controllers;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
@@ -39,10 +40,19 @@ public class AsymmetricEncryptionController extends EncryptionController {
     private RadioButton RBbKeystore_bPublic;
     @FXML
     private RadioButton RBbKeystore_aPublic;
+    @FXML
+    private Button BtnAction;
 
     @FXML
     public void switchAction() {
-        // TODO
+        if (RBcifrar.isSelected()) {
+            BtnAction.setText("Cifrar");
+            RBaKeystore_aPublic.setDisable(true);
+            RBbKeystore_bPublic.setDisable(true);
+
+        } else {
+            BtnAction.setText("Descifrar");
+        }
     }
 
     @FXML
@@ -64,6 +74,11 @@ public class AsymmetricEncryptionController extends EncryptionController {
     public void pressExitButton() {
         Stage stage = (Stage) RBcifrar.getScene().getWindow() ;
         stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
+    }
+
+    private boolean validateForm() {
+
+        return false; // TODO IMPLEMENTAR
     }
 
 

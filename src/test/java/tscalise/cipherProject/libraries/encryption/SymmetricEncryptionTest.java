@@ -44,7 +44,7 @@ class SymmetricEncryptionTest {
         generator.init(192);
         SecretKey key = generator.generateKey();
 
-        SymmetricEncryption.cryptFile(input, output, key);
+        SymmetricEncryption.encryptFile(input, output, key);
         SymmetricEncryption.decryptFile(output, output2, key);
     }
 
@@ -77,6 +77,7 @@ class SymmetricEncryptionTest {
         String str = "test";
         byte[] a, b;
 
+        // TODO METHOD
         KeyStore keyStore = KeyStore.getInstance("JKS");
         keyStore.load(new FileInputStream("a_keystore.jks"), "123456".toCharArray());
         SecretKey key = (SecretKey) keyStore.getKey("secretKey", "123456".toCharArray());

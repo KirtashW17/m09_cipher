@@ -47,8 +47,8 @@
          <tooltip>
             <Tooltip text="Usar solamente string en formato hexadecimal [0-9a-f]" />
          </tooltip></TextField>
-      <TextField fx:id="TFautoSeed" disable="true" editable="false" layoutX="227.0" layoutY="279.0" opacity="0.7" prefHeight="24.0" prefWidth="307.0" text="Aqui aparecerá la semilla generada" />
-      <Button layoutX="497.0" layoutY="362.0" mnemonicParsing="false" onAction="#pressActionButton" text="Cifrar" />
+      <TextField fx:id="TFautoSeed" editable="false" layoutX="227.0" layoutY="279.0" opacity="0.7" prefHeight="24.0" prefWidth="307.0" text="Aqui aparecerá la semilla generada" />
+      <Button fx:id="BtnAction" layoutX="497.0" layoutY="362.0" mnemonicParsing="false" onAction="#pressActionButton" text="Cifrar" />
       <Button layoutX="77.0" layoutY="362.0" mnemonicParsing="false" onAction="#pressClearButton" text="Vaciar Campos" />
       <Button layoutX="21.0" layoutY="362.0" mnemonicParsing="false" onAction="#pressExitButton" text="Salir" />
    </children>
