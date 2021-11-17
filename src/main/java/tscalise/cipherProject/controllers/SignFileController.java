@@ -36,9 +36,8 @@ public class SignFileController {
     public void pressSelectSourceButton() {
         String title = "Seleccionar archivo de origen";
         Stage stage = (Stage) TFdestinationFile.getScene().getWindow();
-        FileChooser.ExtensionFilter[] extensionFilters = null;
 
-        File selectedFile = Utilities.showFileChooser(title, false, stage, extensionFilters);
+        File selectedFile = Utilities.showFileChooser(title, false, stage, null);
 
         if (selectedFile != null) {
             String filePath = selectedFile.getAbsolutePath();

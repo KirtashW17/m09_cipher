@@ -73,6 +73,6 @@ class HighLevelApiSignatureTest {
 
         HighLevelApiSignature.signFile(inputFile, outputFile, keyPair.getPrivate());
         assertTrue(HighLevelApiSignature.verifyFileSignature(outputFile, keyPair.getPublic()));
-        assertTrue(HighLevelApiSignature.verifyFileSignatureAndTrim(outputFile, outputFile2, keyPair.getPublic()));
+        assertTrue(HighLevelApiSignature.verifyFileSignatureAndTrim(outputFile, outputFile2, keyPair.getPublic(), false));
     }
 }

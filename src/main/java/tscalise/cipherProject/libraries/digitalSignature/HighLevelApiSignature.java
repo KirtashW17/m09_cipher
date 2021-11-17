@@ -140,9 +140,12 @@ public class HighLevelApiSignature {
      * @param signedFile
      * @param destinationFile
      * @param publicKey
+     * @param alwaysTrim
      * @return
      */
-    public static boolean verifyFileSignatureAndTrim(File signedFile, File destinationFile, PublicKey publicKey) throws IOException, GeneralSecurityException {
+    public static boolean verifyFileSignatureAndTrim(File signedFile, File destinationFile, PublicKey publicKey, boolean alwaysTrim)
+            throws IOException, GeneralSecurityException {
+
         BufferedInputStream in = new BufferedInputStream(new FileInputStream(signedFile));
         BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(destinationFile));
         int buffSize = 8192;
@@ -172,9 +175,14 @@ public class HighLevelApiSignature {
         out.write(lastMessageBytes);
         out.flush();
         out.close();
-
         byte[] signatureBytes = getSignatureBytes(buff2, (RSAKey) publicKey);
-        return signature.verify(signatureBytes);
+        boolean validSignature = signature.verify(signatureBytes);
+
+        if (!validSignature && !alwaysTrim) {
+            destinationFile.delete();
+        }
+
+        return validSignature;
     }
 
     /**

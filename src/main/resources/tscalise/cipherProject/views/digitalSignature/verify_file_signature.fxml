@@ -30,8 +30,11 @@
       <Button layoutX="16.0" layoutY="362.0" mnemonicParsing="false" onAction="#pressExitButton" text="Salir" />
       <Button layoutX="74.0" layoutY="362.0" mnemonicParsing="false" onAction="#pressClearButton" text="Vaciar Campos" />
       <Label layoutX="16.0" layoutY="57.0" text="Accion:" />
-      <RadioButton layoutX="100.0" layoutY="56.0" mnemonicParsing="false" onAction="#switchAction" selected="true" text="Verificar Firma" />
-      <RadioButton layoutX="243.0" layoutY="56.0" mnemonicParsing="false" onAction="#switchAction" text="Verificar y truncar firma" />
+      <RadioButton layoutX="100.0" layoutY="56.0" mnemonicParsing="false" onAction="#switchAction" selected="true" text="Verificar Firma">
+         <toggleGroup>
+            <ToggleGroup fx:id="TGaction" />
+         </toggleGroup></RadioButton>
+      <RadioButton layoutX="243.0" layoutY="56.0" mnemonicParsing="false" onAction="#switchAction" text="Verificar y truncar firma" toggleGroup="$TGaction" />
       <CheckBox fx:id="CBpermissive" disable="true" layoutX="13.0" layoutY="204.0" mnemonicParsing="false" text="Truncar firma aunque sea invalida" />
    </children>
 </AnchorPane>

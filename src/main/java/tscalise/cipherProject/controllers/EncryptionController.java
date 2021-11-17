@@ -46,7 +46,7 @@ public class EncryptionController {
                 if (filePath.equals(destinationFilePath))
                     TFdestinationFile.setText(filePath + "_decrypted");
                 else
-                    TFdestinationFile.setText(filePath.replace(".enc", ""));
+                    TFdestinationFile.setText(destinationFilePath);
             }
         }
     }
@@ -67,7 +67,7 @@ public class EncryptionController {
         if (selectedFile != null) {
             String filePath = selectedFile.getAbsolutePath();
             String fileName = selectedFile.getName();
-            if(RBcifrar.isSelected() && fileName.endsWith(".enc")) {
+            if(RBcifrar.isSelected() && !fileName.endsWith(".enc")) {
                 filePath = filePath + ".enc";
             }
             TFdestinationFile.setText(filePath);
