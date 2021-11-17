@@ -47,7 +47,7 @@ class AsymmetricEncryptionTest {
         kpGen.initialize(1024);
         KeyPair keyPair = kpGen.generateKeyPair();
 
-        AsymmetricEncryption.cryptFile(input, output, keyPair.getPublic());
+        AsymmetricEncryption.encryptFile(input, output, keyPair.getPublic());
         AsymmetricEncryption.decryptFile(output, output2, keyPair.getPrivate());
     }
 

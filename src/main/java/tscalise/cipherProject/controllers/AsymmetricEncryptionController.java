@@ -5,13 +5,18 @@ import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import tscalise.cipherProject.libraries.encryption.AsymmetricEncryption;
+import tscalise.cipherProject.libraries.encryption.SymmetricEncryption;
+import tscalise.cipherProject.libraries.utils.Utilities;
 
+import javax.crypto.BadPaddingException;
 import java.io.File;
-
-import static tscalise.cipherProject.libraries.utils.Utilities.showFileChooser;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.security.*;
 
 // TODO VERIFY HASH -> Option generate checksum, supocion sign the checksum
 
@@ -27,7 +32,7 @@ public class AsymmetricEncryptionController extends EncryptionController {
     @FXML
     private TextField TFdestinationFile;
     @FXML
-    private RadioButton aKeystoreaPrivate;
+    private RadioButton RBaKeystoreaPrivate;
     @FXML
     private ToggleGroup TGkey;
     @FXML
@@ -45,29 +50,32 @@ public class AsymmetricEncryptionController extends EncryptionController {
 
     @FXML
     public void switchAction() {
-        if (RBcifrar.isSelected()) {
+        if (RBcifrar.isSelected())
             BtnAction.setText("Cifrar");
-            RBaKeystore_aPublic.setDisable(true);
-            RBbKeystore_bPublic.setDisable(true);
-
-        } else {
+        else
             BtnAction.setText("Descifrar");
-        }
     }
 
     @FXML
     public void switchKey() {
-        // TODO
+        // Por ahora nada, si añadimos la opcion de subir una custom key implementar, para habilitar/desactivar opciones
     }
 
     @FXML
     public void pressClearButton() {
-
+        RBcifrar.setSelected(true);
+        TFsourceFile.clear();
+        TFdestinationFile.clear();
+        RBbKeystore_bPublic.setSelected(true);
     }
 
     @FXML
     public void pressActionButton() {
-
+        if (!validateForm()) {
+            Utilities.showAlertDialog("WARNING", "Los siguientes campos no pueden estar vacios: ");
+        } else {
+            doAction();
+        }
     }
 
     @FXML
@@ -76,9 +84,99 @@ public class AsymmetricEncryptionController extends EncryptionController {
         stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
     }
 
-    private boolean validateForm() {
+    private void doAction() {
+        String keystore = null, alias = null;
+        boolean isPrivateKey = false;
 
-        return false; // TODO IMPLEMENTAR
+        switch (((RadioButton) TGkey.getSelectedToggle()).getId()) {
+            case "RBaKeystore_aPrivate":
+                keystore = "a_keystore.jks";
+                alias = "aKeyPair";
+                isPrivateKey = true;
+                break;
+            case "RBaKeystore_bPublic":
+                keystore = "a_keystore.jks";
+                alias = "bCertificate";
+                break;
+            case "RBbKeystore_bPrivate":
+                keystore = "b_keystore.jks";
+                alias = "bKeyPair";
+                isPrivateKey = true;
+                break;
+            case "RBbKeystore_aPublic":
+                keystore = "b_keystore.jks";
+                alias = "aCertificate";
+                break;
+        }
+
+        Key key = getRSAKey(keystore, "123456", alias, isPrivateKey);
+
+        if (key != null) {
+            File sourceFile = new File(TFsourceFile.getText());
+            File destinationFile = new File(TFdestinationFile.getText());
+
+            try {
+                if (RBcifrar.isSelected())
+                    AsymmetricEncryption.encryptFile(sourceFile, destinationFile, key);
+                else
+                    AsymmetricEncryption.decryptFile(sourceFile, destinationFile, key);
+
+                String partialStr = RBcifrar.isSelected() ? "cifrado" : "descifrado";
+                Utilities.showAlertDialog("INFORMATION", "El archivo se ha " + partialStr + " con éxito!");
+            } catch (FileNotFoundException e) {
+                Utilities.showAlertDialog("ERROR", "No se ha encontrado el archivo de origen o el " +
+                        "directorio de destinación.");
+            } catch (BadPaddingException e) {
+                Utilities.showAlertDialog("ERROR", "La clave usada es incorrecta o el la entrada no tiene " +
+                        "el formato esperado. Revisar clave y archivo de entrada.");
+            } catch (IOException e) {
+                Utilities.showAlertDialog("ERROR", "Se ha producido un error de E/S inesperado.");
+                e.printStackTrace();
+            } catch (GeneralSecurityException e) {
+                Utilities.showAlertDialog("ERROR", "Se ha producido un error de seguridad inesperado.");
+                e.printStackTrace();
+            }
+//            catch (InvalidKeyException e) {
+//                USAR SI AÑADIMOS LA OPCION DE SUBIR TU PROPIA CLAVE
+//                e.printStackTrace();
+//            }
+
+        }
+
+    }
+
+    private Key getRSAKey(String keystorePath, String keystoreType, String password, String alias, boolean isPrivateKey) {
+        Key key = null;
+
+        try {
+            KeyStore keyStore = KeyStore.getInstance(keystoreType);
+            keyStore.load(new FileInputStream(keystorePath), password.toCharArray());
+
+            if (isPrivateKey)
+                key = keyStore.getKey(alias, password.toCharArray());
+            else
+                key = keyStore.getCertificate(alias).getPublicKey();
+        } catch (GeneralSecurityException | IOException e) {
+            Utilities.showAlertDialog("ERROR", "No se ha encontrado el almacén de llaves o este ha sido manipulado.");
+            e.printStackTrace();
+            // IOException se produce por ejemplo en caso de que la contraseña sea incorrecta o se produzca un error
+            //  al leer el almacén de llaves, las excepciones hijas de GeneralSecurityException se producen varios caso,
+            //  sin embargo con los keystores que hemos generado no pasará y no hace falta mostrar un diálogo diferente
+            //  por cada cosa ya que no depende de las acciones del usuario, la contraseña, el alias y el keystores
+            //  están definidos en el código, no en la entrada del usuario
+        }
+
+        return key;
+    }
+
+    private Key getRSAKey(String keystorePath, String password, String alias, boolean isPrivateKey) {
+        return getRSAKey(keystorePath, "JKS", password, alias, isPrivateKey);
+    }
+
+    private boolean validateForm() {
+        // todo implementar
+        // todo borde rojo fields no validos
+        return true;
     }
 
 

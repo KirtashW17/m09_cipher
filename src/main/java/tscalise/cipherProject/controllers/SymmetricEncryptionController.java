@@ -8,13 +8,11 @@ import tscalise.cipherProject.libraries.encryption.SymmetricEncryption;
 import tscalise.cipherProject.libraries.utils.Utilities;
 
 import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.SecretKey;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.security.InvalidKeyException;
 
 
 public class SymmetricEncryptionController extends EncryptionController {
@@ -106,11 +104,11 @@ public class SymmetricEncryptionController extends EncryptionController {
     }
 
     private boolean validateForm() {
-
-        return true; //todo implementar
+        // todo implementar
+        // todo borde rojo fields no validos
+        return true;
     }
 
-    // TODO CONTROLAR EXCEPCIONES
     private void doAction() {
         String keystore = RBaSecretKey.isSelected() ? "a_keystore.jks" : "b_keystore.jks";
         SecretKey secretKey = getSecretKey(keystore);
@@ -125,21 +123,25 @@ public class SymmetricEncryptionController extends EncryptionController {
                 else
                     SymmetricEncryption.decryptFile(sourceFile, destinationFile, secretKey);
 
-                Utilities.showAlertDialog("INFORMATION", "El archivo se ha cifrado con éxito!");
+                String partialStr = RBcifrar.isSelected() ? "cifrado" : "descifrado";
+                Utilities.showAlertDialog("INFORMATION", "El archivo se ha " + partialStr + " con éxito!");
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-
+                Utilities.showAlertDialog("ERROR", "No se ha encontrado el archivo de origen o el " +
+                        "directorio de destinación.");
             } catch (BadPaddingException e) {
+                Utilities.showAlertDialog("ERROR", "La clave usada es incorrecta o el la entrada no tiene " +
+                        "el formato esperado. Revisar clave y archivo de entrada.");
+            } catch (IOException e) {
+                Utilities.showAlertDialog("ERROR", "Se ha producido un error de E/S inesperado.");
                 e.printStackTrace();
-
-            } catch (InvalidKeyException e) {
-                e.printStackTrace();
-
             } catch (GeneralSecurityException e) {
+                Utilities.showAlertDialog("ERROR", "Se ha producido un error de seguridad inesperado.");
                 e.printStackTrace();
             }
+//            catch (InvalidKeyException e) {
+//                USAR SI AÑADIMOS LA OPCION DE SUBIR TU PROPIA CLAVE
+//                e.printStackTrace();
+//            }
         }
     }
 

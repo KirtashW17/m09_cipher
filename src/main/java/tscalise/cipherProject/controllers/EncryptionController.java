@@ -6,12 +6,12 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import tscalise.cipherProject.libraries.utils.Utilities;
 
 import java.io.File;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 
-import static tscalise.cipherProject.libraries.utils.Utilities.showFileChooser;
 
 public class EncryptionController {
 
@@ -26,36 +26,39 @@ public class EncryptionController {
     public void pressSelectSourceButton() {
         String title = "Seleccionar archivo de origen";
         Stage stage = (Stage) TFdestinationFile.getScene().getWindow();
-        File selectedFile = showFileChooser(title, false, stage, null);
-
-        // TODO: Extract method
-        // TODO: IF DESCIFRANDO REMOVER .ENC Y FILTRAR SOLO .ENC
-
-
+        File selectedFile = Utilities.showFileChooser(title, false, stage, null);
 
         if (selectedFile != null) {
             String filePath = selectedFile.getAbsolutePath();
             TFsourceFile.setText(filePath);
-            TFdestinationFile.setText(filePath + ".enc");
+            if (RBcifrar.isSelected())
+                TFdestinationFile.setText(filePath + ".enc");
+            else {
+                String destinationFilePath = filePath.replace(".enc", "");
+                if (filePath.equals(destinationFilePath))
+                    TFdestinationFile.setText(filePath + "_decrypted");
+                else
+                    TFdestinationFile.setText(filePath.replace(".enc", ""));
+            }
         }
     }
 
-    // TODO CODIGO DUPLICADO
     @FXML
     public void pressSelectDestinationButton() {
         String title = "Seleccionar ruta de destinación";
         Stage stage = (Stage) TFdestinationFile.getScene().getWindow();
 
-        // TODO: Extract method and put to parent class
-        // TODO: IF DESCIFRANDO NO FILTER Y NO FORZAR A .ENC
-        FileChooser.ExtensionFilter[] extensionFilters =
-                { new FileChooser.ExtensionFilter("ENC files (*.enc)", "*.enc") };
+        FileChooser.ExtensionFilter[] extensionFilters = null;
 
-        File selectedFile = showFileChooser(title, true, stage, extensionFilters);
+        if (RBcifrar.isSelected())
+            extensionFilters = new FileChooser.ExtensionFilter[]
+                    {new FileChooser.ExtensionFilter("ENC files (*.enc)", "*.enc")};
+
+        File selectedFile = Utilities.showFileChooser(title, true, stage, extensionFilters);
 
         if (selectedFile != null) {
             String filePath = selectedFile.getAbsolutePath();
-            if(!selectedFile.getName().contains(".")) {
+            if(RBcifrar.isSelected() && !selectedFile.getName().contains(".")) {
                 filePath = filePath + ".enc";
             }
             TFdestinationFile.setText(filePath);

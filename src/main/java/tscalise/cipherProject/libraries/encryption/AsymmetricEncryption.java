@@ -144,8 +144,7 @@ public class AsymmetricEncryption {
 
     // TODO CONTROL DE EXCEPCIONES
     // todo return boolean
-    // TODO normalize name (encryptFile)
-    public static void cryptFile(File fileSource, File fileDestination, Key key) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+    public static void encryptFile(File fileSource, File fileDestination, Key key) throws IOException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
         int buffSize = getKeySize((RSAKey) key) / 8 - 11;
         BufferedInputStream in = new BufferedInputStream(new FileInputStream(fileSource));
         BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(fileDestination));
