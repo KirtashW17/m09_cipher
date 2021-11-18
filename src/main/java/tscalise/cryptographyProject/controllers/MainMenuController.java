@@ -52,6 +52,16 @@ public class MainMenuController {
         changeScene("views/digitalSignature/verify_file_signature.fxml", "Comprobar firma digital");
     }
 
+    @FXML
+    public void showCesar1View() {
+        changeScene("views/cipher/cesar1.fxml", "Cesar 1");
+    }
+
+    @FXML
+    public void showCesar2View() {
+        changeScene("views/cipher/cesar2.fxml", "Cesar 2");
+    }
+
     /**
      * Obrim el formulari que passem per paràmetre. Amb el titol també passat per paràmetre
      * @param view Formulari a obrir

@@ -1,4 +1,4 @@
-package tscalise.cryptographyProject.controllers;
+package tscalise.cryptographyProject.controllers.hashing;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;

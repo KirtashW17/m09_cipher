@@ -2,24 +2,22 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tscalise.cryptographyProject.controllers.cipher.KeyedVigenereController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tscalise.cryptographyProject.controllers.cipher.Cesar2Controller">
    <children>
       <HBox prefHeight="400.0" prefWidth="600.0">
          <children>
           <AnchorPane minHeight="0.0" prefHeight="400.0" prefWidth="700.0">
                <children>
-                  <Text layoutX="71.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cifrado Keyed Vigenere" />
+                  <Text layoutX="93.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cifrado Cesar 1" />
                   <RadioButton fx:id="RBcrypt" layoutX="64.0" layoutY="67.0" mnemonicParsing="false" onAction="#switchRadioButtons" selected="true" text="Cifrar">
                      <toggleGroup>
                         <ToggleGroup fx:id="TGcipherAction" />
@@ -27,14 +25,8 @@
                   </RadioButton>
                   <RadioButton fx:id="RBdecrypt" layoutX="142.0" layoutY="67.0" mnemonicParsing="false" onAction="#switchRadioButtons" text="Descifrar" toggleGroup="$TGcipherAction" />
                   <Separator layoutX="46.0" layoutY="36.0" prefHeight="3.0" prefWidth="194.0" />
-                  <Label layoutX="9.0" layoutY="103.0" prefHeight="36.0" prefWidth="92.0" text="Modificador abecedario:" wrapText="true" />
-                  <TextField fx:id="TFalphabetModificator" layoutX="111.0" layoutY="111.0" onKeyTyped="#typeOnAlphabetModificator" />
-                  <Label layoutX="10.0" layoutY="147.0" prefHeight="36.0" prefWidth="76.0" text="Abecedario en uso:" wrapText="true" />
-                  <Label layoutX="9.0" layoutY="197.0" text="Clave secreta:" />
                   <Button fx:id="btnAction" layoutX="207.0" layoutY="348.0" maxWidth="82.0" mnemonicParsing="false" onAction="#pressActionButton" prefHeight="24.0" prefWidth="82.0" text="Cifrar" />
                   <Button layoutX="14.0" layoutY="348.0" mnemonicParsing="false" onAction="#pressExitButton" text="Salir" />
-                  <TextField fx:id="TFpassphrase" layoutX="111.0" layoutY="194.0" />
-                  <Label fx:id="LabelAlphabetUsed" layoutX="124.0" layoutY="146.0" prefHeight="36.0" prefWidth="122.0" text="ABCDEFGHIJKLMNOPQRSTUVWXYZ" wrapText="true" />
                   <Button layoutX="76.0" layoutY="348.0" mnemonicParsing="false" onAction="#pressClearButton" text="Vaciar Campos" />
                </children>
             </AnchorPane>

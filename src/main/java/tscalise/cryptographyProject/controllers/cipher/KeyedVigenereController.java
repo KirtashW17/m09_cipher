@@ -1,4 +1,4 @@
-package tscalise.cryptographyProject.controllers;
+package tscalise.cryptographyProject.controllers.cipher;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -22,8 +22,6 @@ public class KeyedVigenereController {
     private TextArea TAinput;
     @FXML
     private TextArea TAoutput;
-
-    // TODO: COPY BUTTON
 
     @FXML
     public void pressExitButton() {

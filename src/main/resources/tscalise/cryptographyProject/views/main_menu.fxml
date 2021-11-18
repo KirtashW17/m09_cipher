@@ -25,8 +25,8 @@
                 </Menu>
                 <Menu mnemonicParsing="false" text="Cipher">
                     <items>
-                  <MenuItem mnemonicParsing="false" text="Cesar1 " />
-                  <MenuItem mnemonicParsing="false" text="Cesar2" />
+                  <MenuItem mnemonicParsing="false" onAction="#showCesar1View" text="Cesar1 " />
+                  <MenuItem mnemonicParsing="false" onAction="#showCesar2View" text="Cesar2" />
                         <MenuItem mnemonicParsing="false" onAction="#showKeyedVigenereView" text="Keyed Vigenere" />
                   <MenuItem mnemonicParsing="false" text="Vigenere" />
                   <MenuItem mnemonicParsing="false" text="Acerca de" />

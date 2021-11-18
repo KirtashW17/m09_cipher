@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tscalise.cryptographyProject.controllers.AsymmetricEncryptionController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tscalise.cryptographyProject.controllers.encryption.AsymmetricEncryptionController">
    <children>
       <Text layoutX="244.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cifrado Asimetrico" />
       <Separator layoutX="200.0" layoutY="37.0" prefWidth="200.0" />

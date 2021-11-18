@@ -1,4 +1,4 @@
-package tscalise.cryptographyProject.controllers;
+package tscalise.cryptographyProject.controllers.encryption;
 
 import tscalise.cryptographyProject.libraries.encryption.SymmetricEncryption;
 import tscalise.cryptographyProject.libraries.utils.Utilities;
